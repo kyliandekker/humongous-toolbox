@@ -54,6 +54,9 @@ if(WIN32)
 
 	include(htb_app/htb_app.cmake)
 	set_property(TARGET htb_app PROPERTY FOLDER "htb_exe")
+
+	include(htb_test/htb_test.cmake)
+	set_property(TARGET htb_test PROPERTY FOLDER "htb_exe")
 endif()
 
 include(htb_cli/htb_cli.cmake)

@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <htb_lib/building/BuilderBase.h>
+#include <htb_lib/building/sound/Song.h>
 
 namespace htb::archive
 {
@@ -15,25 +16,6 @@ namespace htb::parsing
 }
 namespace htb::building
 {
-	//======================================================================================
-	// SGENEntry
-	//======================================================================================
-	/// <summary>
-	/// Bookkeeping class for SGEN info.
-	/// </summary>
-	class SGENEntry
-	{
-	public:
-		parsing::Chunk* GetSGENChunk();
-		parsing::Chunk* GetDIGIChunk();
-
-		void SetSGENChunk(parsing::Chunk* a_pSGENChunk);
-		void SetDIGIChunk(parsing::Chunk* a_pDIGIChunk);
-	private:
-		parsing::Chunk* m_pSGENChunk = nullptr;
-		parsing::Chunk* m_pDIGIChunk = nullptr;
-	};
-
 	//======================================================================================
 	// HE4Builder
 	//======================================================================================
@@ -54,6 +36,6 @@ namespace htb::building
 		bool Build() override;
 	protected:
 		archive::Archive* m_pHE4 = nullptr;
-		std::vector<SGENEntry> m_aSGENs;
+		std::vector<Song> m_aSongs;
 	};
 }
