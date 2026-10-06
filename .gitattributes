@@ -1,0 +1,23 @@
+# Default: normalize text files to LF in the repository,
+# checkout with native line endings.
+* text=auto
+
+# Windows-only scripts and Visual Studio files keep CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.sln text eol=crlf
+*.vcxproj text eol=crlf
+*.filters text eol=crlf
+*.user text eol=crlf
+*.xml text eol=crlf
+
+# Binary files
+*.png binary
+*.ttf binary
+*.ai binary
+*.ico binary
+*.exe binary
+*.lib binary
+*.dll binary
+*.pdb binary

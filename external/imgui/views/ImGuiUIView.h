@@ -1,6 +1,6 @@
 #pragma once
 
-namespace humongousexplorer::imgui
+namespace ImGui
 {
 	/// <summary>
 	/// Generic UI view class used by all elements in the editor.

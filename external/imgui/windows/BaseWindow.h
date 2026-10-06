@@ -1,12 +1,12 @@
 #pragma once
 
-#include "views/ImGuiUIView.h"
+#include <imgui/views/ImGuiUIView.h>
 
 // external
 #include <string>
-#include <imgui.h>
+#include <imgui/imgui.h>
 
-namespace humongousexplorer::imgui
+namespace ImGui
 {
 	//---------------------------------------------------------------------
 	// BaseWindow
@@ -76,8 +76,8 @@ namespace humongousexplorer::imgui
 
 		void Initialize();
 
-		void Open() { m_bVisible = true; }
-		void Close() { m_bVisible = false; }
+		virtual void Open() { m_bVisible = true; }
+		virtual void Close() { m_bVisible = false; }
 		void Toggle() { m_bVisible = !m_bVisible; }
 		bool IsOpen() const { return m_bVisible; }
 	protected:

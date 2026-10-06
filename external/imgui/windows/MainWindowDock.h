@@ -2,7 +2,7 @@
 
 #include "BaseWindow.h"
 
-namespace humongousexplorer::imgui
+namespace ImGui
 {
 	//---------------------------------------------------------------------
 	// MainWindowDock

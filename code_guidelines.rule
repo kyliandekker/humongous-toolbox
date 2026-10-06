@@ -1,0 +1,115 @@
+## Rules:
+
+- Member variables follow hungarian notation and will start with the prefix m_. Known types are:
+	- m_iHealth = byte, short, long, long long, int, int8_t, uint8_t, int16_t, uint16_t, int32_t, uint32_t, int64_t, uint64_t.
+	- m_fPercentage = float, double.
+	- m_bGotHit = bool.
+	- m_mDictionary = map, unordered_map.
+	- m_sName = string, char*, const char*.
+	- m_fnFoo = function<>.
+	- m_eType = enum, enum class.
+	- m_pClass = raw pointer, unique_ptr, shared_ptr, weak_ptr.
+	- m_aNames = [], Array, vector.
+	- m_vPosition = Vector2, IVector2, Vector3, IVector3, Vector4, IVector4.
+	- m_cCharacter = char.
+	- m_qMessages = queue.
+- Arguments follow hungarian notation and will start with the prefix a_. Types are the same as member variables.
+- Prefer std::string over (const) char*.
+- Prefer std::filesystem::path over std::string.
+- Prefer std::function over function pointers.
+- Prefer lambdas over std::bind.
+- Every method and function (even private ones) need multi-line verbose XML documentation like this <summary>\n/// ...\n/// </summary>\n/// <param name=\"a_...\">\n/// <returns>
+- Every class should start with 
+	//======================================================================================
+	// ClassName
+	//======================================================================================
+	/// <summary>
+	/// brief summary.
+	/// </summary>
+- The first method in a source file of every class should start with
+	//======================================================================================
+	// ClassName
+	//======================================================================================	
+- Every method in a source file should be separated by the same separators.
+	//======================================================================================
+- Prefer putting implementations in source files, rather than headers.
+- Make local variables const if they do not change.
+- Pass as const reference when possible.
+- Prefer std::unique_ptr over raw pointers and manual allocation (IE malloc, free, new, delete).
+- Namespaces should not be nested.
+- Prefer early returns over nested if statements.
+- All if statements should have braces and must be on new lines.
+	Do
+		"if (test)
+		{
+		}"
+	instead of 
+		"if (test) {}"
+- Switch statements and cases should always contain braces.
+- Include order should be alphabetical.
+- Include order is
+	1. Parent class/header class of cpp file. (header of cpp should be relative and start with ./)
+	2. External libs and std.
+	3. Gallus.
+	4. Platform-specific Gallus.
+	5. Editor.
+- Use constexpr instead of #define when possible.
+- Always (try to) initialize variables in the fields.
+- The Gallus library should be platform-independent. There will be extra libraries for Win32, DX12 and others.
+- Use the Log system instead of printf, cout or other print methods.
+- Use lowerCamelCase for local variables (for instance: bool hasBeenKilled;).
+- Enums should follow UpperCamelCase for the name and FULL CAPITALS for the values. For instance:
+	"enum class Color
+	{
+		RED,
+		BLU
+	}"
+- constexpr and define variables should be FULL CAPITALS.
+	- This does not count for functions.
+- Namespace names should be lowercase and snake case.
+- Folder structure should also be lower case and snake case.
+- Don't use "using namespace" (serialization is an exception to the rule).
+- Use ifdefs for platform-specific code (just to show it is platform-dependent).
+- Start platform-specific classes with their prefixes, such as Win32Window and DX12Texture.
+- Do not use magic numbers.
+- Use gallus::core::Data for data allocations instead of byte*, char* or uint8_t*.
+- Empty functions with brackets should have the brackets on a new line. Like this:
+	"void Test()
+	{}"
+- When overriding a method, explicitly add the override keyword.
+- Friend keyword should be used thoughtfully.
+- Mutable keyword should be used thoughtfully.
+- Use scoped lock instead of manually locking and unlocking mutexes.
+- Use the "Get" prefix for getters and "Set" prefix for Setters (unless the name does not make sense, like "GetDead()" vs "IsDead()" for "m_bDead").
+- Do not use more than one default parameter.
+- When possible to use a reference, use it instead of a pointer.
+- Getters should always try to return const references (unless not possible or if it does not make sense like with integers, floats, etc).
+- Use nullptr instead of NULL.
+- Check pointers and booleans with "if (killed)" instead of "if (killed == true)". 
+- Do not use yoda comparisons.
+- Do not make any changes to external libraries.
+- (for some reason) prefer FILE* over ofstream.
+- Prefix abstract classes with the letter I (interface) such as ISystem, IConfig.
+- Prefer classes over structs.
+- Prefer setters and getters over public fields.
+- Declare all field members (m_*) at the bottom of the class in a private block after methods, e.g.: class Foo { public: void Bar(); private: int m_iValue = 0; };.
+- All content inside a namespace block (classes, enums, functions, separators) must be indented with one tab (\t) relative to the namespace braces.
+- #pragma once as first line in every header, blank line after.
+- Inside BEGIN_SERIALIZE_FIELDS each SERIALIZE_FIELD wrapped with one triple-tab //======================================================================================
+- Class order strict public -> protected -> private, fields last in private.
+- No methods after fields.
+- DECLARE_TYPE / DECLARE_ABSTRACT_TYPE / EDITOR_OBJ / DECLARE_METADATA_CLASS immediately after "class Foo {" before any access label.
+- Enum layout brace on new line, values double-tab with trailing comma.
+- Switch case format
+	switch (..)
+	{
+		case X:
+		{
+			break;
+		}
+	}
+- Tabs instead of spaces.
+- Empty functions brackets collapsed.
+- No blank line between last accessor and next access specifier.
+- Enums must start with E such as EResourceType.
+- htb_libs are holy and should be treated as libraries and should be included with <>. Code specifically for executables should be included with "".

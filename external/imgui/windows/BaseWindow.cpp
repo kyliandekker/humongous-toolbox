@@ -1,17 +1,10 @@
 #include "BaseWindow.h"
 
 // external
-#include <imgui.h>
+#include <imgui/imgui.h>
+#include <imgui/imgui_helpers.h>
 
-#include "Helpers.h"
-
-namespace humongousexplorer::imgui
-{
-	ImFont* GetBoldFont();
-	ImFont* GetDefaultFont();
-}
-
-namespace humongousexplorer::imgui
+namespace ImGui
 {
 	//---------------------------------------------------------------------
 	// BaseWindow

@@ -1,9 +1,9 @@
-#include "MainWindowDock.h"
+#include "./MainWindowDock.h"
 
 // external
-#include <imgui.h>
+#include <imgui/imgui.h>
 
-namespace humongousexplorer::imgui
+namespace ImGui
 {
 	//---------------------------------------------------------------------
 	// MainWindowDock
