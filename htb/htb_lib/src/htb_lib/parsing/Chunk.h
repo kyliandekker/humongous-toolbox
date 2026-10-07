@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <vector>
 #include <string>
 #include <memory>
@@ -62,6 +63,12 @@ namespace htb::parsing
 		/// <param name="a_sChunkID">The 4-character chunk tag to search for.</param>
 		/// <returns>A pointer to the found chunk, or nullptr if not found.</returns>
 		bool TryFindChildren(const std::string_view& a_sChunkID, std::vector<Chunk*>& a_aChunks);
+
+		/// <summary>
+		/// Recursively searches for child chunks with the specified tag.
+		/// </summary>
+		/// <param name="a_sChunkID">The 4-character chunk tag to search for.</param>
+		void TryFindChildren(const std::string_view& a_sChunkID, std::function<void(Chunk*)> a_fnCallback);
 
 		/// <summary>
 		/// Recursively searches for child chunks with the specified tag.

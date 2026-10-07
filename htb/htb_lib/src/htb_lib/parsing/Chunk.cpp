@@ -78,6 +78,18 @@ namespace htb::parsing
 		return !a_aChunks.empty();
 	}
 
+    void Chunk::TryFindChildren(const std::string_view& a_sChunkID, std::function<void(Chunk*)> a_fnCallback)
+    {
+		if (m_sTag == a_sChunkID)
+		{
+			a_fnCallback(this);
+		}
+		for (std::unique_ptr<Chunk>& chunk : m_aChildren)
+		{
+			chunk->TryFindChildren(a_sChunkID, a_fnCallback);
+		}
+    }
+
 	//======================================================================================
 	bool Chunk::TryFindChildren(const std::vector<std::string_view>& a_sChunkIDs, std::vector<Chunk*>& a_aChunks)
 	{

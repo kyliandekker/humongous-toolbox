@@ -7,6 +7,7 @@
 
 #include <htb_lib/archive/ArchiveSet.h>
 #include <htb_lib/building/HE0Builder.h>
+#include <htb_lib/building/resources/Talkie.h>
 #include <htb_lib/building/ScriptBuilder.h>
 #include <htb_lib/core/Data.h>
 #include <htb_lib/core/DataStream.h>
@@ -219,8 +220,13 @@ namespace htb::patch
 
 			SetBusyWith("Bezig met het zoeken van spraakdata in Spy Fox 3...");
 
-			std::vector<parsing::Chunk*> sf3TalkChunks;
-			if (!spyfox3HE2->GetRoot().TryFindChildren(parsing::TALK_CHUNK_ID, sf3TalkChunks))
+			std::vector<building::Talkie> sf3Talkies;
+			spyfox3HE2->GetRoot().TryFindChildren(parsing::TALK_CHUNK_ID, [&sf3Talkies](parsing::Chunk* chunk)
+			{
+				sf3Talkies.emplace_back(*chunk);
+			});
+
+			if (sf3Talkies.empty())
 			{
 				throw std::runtime_error("Could not find any TALKS in (A) of Spy Fox 3.");
 			}
@@ -254,34 +260,26 @@ namespace htb::patch
 					throw std::runtime_error("Could not find HE2 in Spy Fox 2 archives.");
 				}
 
-				std::vector<parsing::Chunk*> sf2TalkChunks;
-				if (!spyfox2HE2->GetRoot().TryFindChildren(parsing::TALK_CHUNK_ID, sf2TalkChunks))
+				std::vector<building::Talkie> sf2Talkies;
+				spyfox2HE2->GetRoot().TryFindChildren(parsing::TALK_CHUNK_ID, [&sf2Talkies](parsing::Chunk* chunk)
+				{
+					sf2Talkies.emplace_back(*chunk);
+				});
+
+				if (sf2Talkies.empty())
 				{
 					throw std::runtime_error("Could not find any TALKS in (A) of Spy Fox 2.");
 				}
 
 				for (const auto& patches : SF2_VO_INDEX)
 				{
-					parsing::Chunk* sf2Talk = sf2TalkChunks[patches.first];
-					parsing::Chunk* sf2Sdat = sf2Talk->TryFindChild(parsing::SDAT_CHUNK_ID);
-					if (!sf2Sdat)
-					{
-						throw std::runtime_error("Could not find SDAT in TALK of Spy Fox 2.");
-					}
-					parsing::Chunk* sf2Sbng = sf2Talk->TryFindChild(parsing::SBNG_CHUNK_ID);
+					building::Talkie& sf2Talkie = sf2Talkies[patches.first];
+					building::Talkie& sf3Talkie = sf3Talkies[patches.second];
 
-					parsing::Chunk* sf3Talk = sf3TalkChunks[patches.second];
-					parsing::Chunk* sf3Sdat = sf3Talk->TryFindChild(parsing::SDAT_CHUNK_ID);
-					if (!sf3Sdat)
+					sf3Talkie.SetAudioData(sf2Talkie.GetAudioData());
+					if (sf2Talkie.HasSBNGData() && sf3Talkie.HasSBNGData())
 					{
-						throw std::runtime_error("Could not find SDAT in TALK of Spy Fox 3.");
-					}
-					parsing::Chunk* sf3Sbng = sf3Talk->TryFindChild(parsing::SBNG_CHUNK_ID);
-
-					sf3Sdat->SetData(sf2Sdat->GetData());
-					if (sf3Sbng && sf2Sbng)
-					{
-						sf3Sbng->SetData(sf2Sbng->GetData());
+						sf3Talkie.SetSBNGData(sf2Talkie.GetSBNGData());
 					}
 				}
 			}
@@ -315,34 +313,26 @@ namespace htb::patch
 					throw std::runtime_error("Could not find HE2 in Spy Fox 1 archives.");
 				}
 
-				std::vector<parsing::Chunk*> sf1TalkChunks;
-				if (!spyfox1HE2->GetRoot().TryFindChildren(parsing::TALK_CHUNK_ID, sf1TalkChunks))
+				std::vector<building::Talkie> sf1Talkies;
+				spyfox1HE2->GetRoot().TryFindChildren(parsing::TALK_CHUNK_ID, [&sf1Talkies](parsing::Chunk* chunk)
+					{
+						sf1Talkies.emplace_back(*chunk);
+					});
+
+				if (sf1Talkies.empty())
 				{
-					throw std::runtime_error("Could not find any TALKS in (A) of Spy Fox 1.");
+					throw std::runtime_error("Could not find any TALKS in (A) of Spy Fox 2.");
 				}
 
 				for (const auto& patches : SF1_VO_INDEX)
 				{
-					parsing::Chunk* sf1Talk = sf1TalkChunks[patches.first];
-					parsing::Chunk* sf1Sdat = sf1Talk->TryFindChild(parsing::SDAT_CHUNK_ID);
-					if (!sf1Sdat)
-					{
-						throw std::runtime_error("Could not find SDAT in TALK of Spy Fox 1.");
-					}
-					parsing::Chunk* sf1Sbng = sf1Talk->TryFindChild(parsing::SBNG_CHUNK_ID);
+					building::Talkie& sf1Talkie = sf1Talkies[patches.first];
+					building::Talkie& sf3Talkie = sf3Talkies[patches.second];
 
-					parsing::Chunk* sf3Talk = sf3TalkChunks[patches.second];
-					parsing::Chunk* sf3Sdat = sf3Talk->TryFindChild(parsing::SDAT_CHUNK_ID);
-					if (!sf3Sdat)
+					sf3Talkie.SetAudioData(sf1Talkie.GetAudioData());
+					if (sf1Talkie.HasSBNGData() && sf3Talkie.HasSBNGData())
 					{
-						throw std::runtime_error("Could not find SDAT in TALK of Spy Fox 3.");
-					}
-					parsing::Chunk* sf3Sbng = sf3Talk->TryFindChild(parsing::SBNG_CHUNK_ID);
-
-					sf3Sdat->SetData(sf1Sdat->GetData());
-					if (sf3Sbng && sf1Sbng)
-					{
-						sf3Sbng->SetData(sf1Sbng->GetData());
+						sf3Talkie.SetSBNGData(sf1Talkie.GetSBNGData());
 					}
 				}
 			}

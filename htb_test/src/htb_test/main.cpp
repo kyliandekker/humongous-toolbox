@@ -1,7 +1,7 @@
 #include <htb_lib/archive/ArchiveSet.h>
 #include <htb_lib/building/HE4Builder.h>
 #include <htb_lib/core/Log.h>
-#include <htb_lib/building/sound/Song.h>
+#include <htb_lib/building/resources/Song.h>
 #include <htb_lib/parsing/ChunkIDs.h>
 
 using namespace htb;

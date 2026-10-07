@@ -45,11 +45,11 @@ Other formats might be supported but have not been tested.
 
 ## Third-Party Libraries
 
-- [Dear ImGui](https://github.com/ocornut/imgui) — Immediate-mode GUI (with docking)
-- [ImPlot](https://github.com/epezent/implot) — Plotting extension for ImGui
-- [NanoSVG](https://github.com/memononen/nanosvg) — SVG parser and rasterizer
-- [stb_image](https://github.com/nothings/stb) — Image loading and saving
-- [RapidJSON](https://github.com/Tencent/rapidjson) — JSON parser/serializer
+- [Dear ImGui](https://github.com/ocornut/imgui) Immediate-mode GUI (with docking)
+- [ImPlot](https://github.com/epezent/implot) Plotting extension for ImGui
+- [NanoSVG](https://github.com/memononen/nanosvg) SVG parser and rasterizer
+- [stb_image](https://github.com/nothings/stb) Image loading and saving
+- [RapidJSON](https://github.com/Tencent/rapidjson) JSON parser/serializer
 
 ## License
 

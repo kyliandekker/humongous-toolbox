@@ -16,24 +16,24 @@ namespace htb::parsing
 namespace htb::building
 {
 	//======================================================================================
-	// Song
+	// Talkie
 	//======================================================================================
 	/// <summary>
-	/// Contains the info for a song and all the utility functions.
+	/// Contains the info for a talk and can rebuild.
 	/// </summary>
-	class Song : public GameResource
+	class Talkie : public GameResource
 	{
 	public:
 		/// <summary>
-		/// Constructs an empty SONG. Not valid.
+		/// Constructs an empty talk. Not valid.
 		/// </summary>
-		Song();
+		Talkie();
 
 		/// <summary>
-		/// Constructs a SONG. Provided chunk MUST be SGEN.
+		/// Constructs a talk. Provided chunk MUST be SGEN.
 		/// </summary>
 		/// <param name="a_SGENChunk">The SGEN chunk.</param>
-		Song(parsing::Chunk& a_SGENChunk);
+		Talkie(parsing::Chunk& a_SGENChunk);
 
 		/// <summary>
 		/// Returns the audio data (PCM).
@@ -48,19 +48,32 @@ namespace htb::building
 		void SetAudioData(const core::Data& a_Data);
 
 		/// <summary>
+		/// Returns the audio data (PCM).
+		/// </summary>
+		/// <returns>Data container with byte data.</returns>
+		const core::Data GetSBNGData() const;
+
+		/// <summary>
+		/// Sets the SBNG data.
+		/// </summary>
+		/// <param name="a_Data">Data container with byte data.</param>
+		void SetSBNGData(const core::Data& a_Data);
+
+		/// <summary>
+		/// Checks whether the talkie has SBNG data.
+		/// </summary>
+		/// <returns>True if SBNG data was found, false otherwise.</returns>
+		bool HasSBNGData() const;
+
+		/// <summary>
 		/// Retrieves the sample rate.
 		/// </summary>
 		/// <returns>The sample rate of the audio.</returns>
 		uint16_t GetSampleRate() const;
-
-		/// <summary>
-		/// Updates the chunk with new information.
-		/// </summary>
-		void Update();
 	private:
-		parsing::Chunk* m_pSGENChunk = nullptr; // Header chunk. Points to DIGI.
-		parsing::Chunk* m_pDIGIChunk = nullptr; // Container chunk.
+		parsing::Chunk* m_pTALKChunk = nullptr; // Container chunk.
 		parsing::Chunk* m_pHSHDChunk = nullptr; // Audio info like sample rate. Inside container chunk.
+		parsing::Chunk* m_pSBNGChunk = nullptr; // Audio info, unsure what exactly. Inside container chunk.
 		parsing::Chunk* m_pSDATChunk = nullptr; // Audio data chunk. Inside container chunk.
 	};
 }
