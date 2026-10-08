@@ -88,7 +88,6 @@ namespace htb::building
 			song.Update();
 		}
 
-
 		core::Log(core::ELogLevel::SUCCESS, "Successfully rebuilt HE4.");
 		return true;
 	}

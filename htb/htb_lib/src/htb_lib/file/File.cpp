@@ -26,7 +26,7 @@ namespace htb::file
 	bool LoadFile(const fs::path& a_Path, core::Data& a_Data)
 	{
 		std::error_code ec;
-		uintmax_t fsize = fs::file_size(a_Path, ec);
+		const uintmax_t fsize = fs::file_size(a_Path, ec);
 		if (ec)
 		{
 			return false;
@@ -43,7 +43,7 @@ namespace htb::file
 			return false;
 		}
 
-		size_t fileSize = static_cast<size_t>(fsize);
+		const size_t fileSize = static_cast<size_t>(fsize);
 
 		FILE* file = OpenFile(a_Path, "rb");
 		if (!file)
@@ -63,7 +63,7 @@ namespace htb::file
 	//======================================================================================
 	bool SaveFile(const fs::path& a_Path, const core::Data& a_Data)
 	{
-		fs::path sanitizedPath = a_Path.lexically_normal();
+		const fs::path sanitizedPath = a_Path.lexically_normal();
 		FILE* file = OpenFile(sanitizedPath, "wb");
 		if (!file)
 		{
@@ -80,7 +80,7 @@ namespace htb::file
 	//======================================================================================
 	bool CreateFolder(const fs::path& a_Path)
 	{
-		fs::path sanitizedPath = a_Path.lexically_normal();
+		const fs::path sanitizedPath = a_Path.lexically_normal();
 		return fs::create_directories(sanitizedPath);
 	}
 }

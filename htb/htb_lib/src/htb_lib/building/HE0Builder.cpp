@@ -243,7 +243,7 @@ namespace htb::building
 		a_aOffsets.clear();
 		a_aSizes.clear();
 
-		std::string chunkId = std::string(a_sChunkID);
+		const std::string chunkId = std::string(a_sChunkID);
 
 		assert(a_pChunk);
 		if (!a_pChunk)
@@ -529,10 +529,10 @@ namespace htb::building
 		a_Archive.GetRoot().TryFindChildren(parsing::LFLF_CHUNK_ID, lflfOffsets);
 		lflfOffsets.insert(lflfOffsets.begin(), &a_Archive.GetRoot());
 
-		uint32_t dlflSize = static_cast<uint32_t>(sizeof(uint16_t)) + (static_cast<uint32_t>(sizeof(uint32_t)) * static_cast<uint32_t>(lflfOffsets.size()));
+		const uint32_t dlflSize = static_cast<uint32_t>(sizeof(uint16_t)) + (static_cast<uint32_t>(sizeof(uint32_t)) * static_cast<uint32_t>(lflfOffsets.size()));
 		core::DataStream data(dlflSize);
 
-		uint16_t numRooms = static_cast<uint16_t>(lflfOffsets.size());
+		const uint16_t numRooms = static_cast<uint16_t>(lflfOffsets.size());
 		data.WriteLE16(numRooms);
 
 		for (size_t i = 0; i < lflfOffsets.size(); i++)
@@ -560,7 +560,7 @@ namespace htb::building
 		std::string_view a_sChunkID
 	)
 	{
-		std::string chunkId = std::string(a_sChunkID);
+		const std::string chunkId = std::string(a_sChunkID);
 
 		assert(a_pChunk);
 		if (!a_pChunk)
@@ -608,9 +608,9 @@ namespace htb::building
 			newIds[id] = originalIds[id];
 		}
 
-		uint32_t finalDirSize = 2 + newIds.size() * 1 + newOffsets.size() * 4 + newSizes.size() * 4;
+		const uint32_t finalDirSize = 2 + newIds.size() * 1 + newOffsets.size() * 4 + newSizes.size() * 4;
 		core::DataStream data = core::DataStream(finalDirSize);
-		uint16_t numEntries = static_cast<uint16_t>(newIds.size());
+		const uint16_t numEntries = static_cast<uint16_t>(newIds.size());
 		data.WriteLE16(numEntries);
 
 		for (size_t i = 0; i < newIds.size(); i++)

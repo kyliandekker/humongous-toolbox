@@ -35,7 +35,7 @@ namespace htb::xml
 				continue;
 			}
 
-			std::string tag = chunk->GetTag();
+			const std::string tag = chunk->GetTag();
 			tinyxml2::XMLElement* element = a_Element.GetDocument()->NewElement(tag.c_str());
 
 			a_Element.InsertEndChild(element);

@@ -191,8 +191,8 @@ namespace htb::parsing
 			Chunk* cparent = parent->m_pParent;
 
 			// If it is the root and it has only one child, return the actual root.
-			bool isRoot = cparent->m_bIsRoot;
-			bool oneChild = cparent->m_aChildren.size() == 1;
+			const bool isRoot = cparent->m_bIsRoot;
+			const bool oneChild = cparent->m_aChildren.size() == 1;
 
 			if (isRoot && oneChild)
 			{
@@ -317,7 +317,7 @@ namespace htb::parsing
 
 			const size_t chunkSizest = WholeChunkSize();
 			assert(chunkSizest <= std::numeric_limits<uint32_t>::max());
-			uint32_t size32 = static_cast<uint32_t>(chunkSizest);
+			const uint32_t size32 = static_cast<uint32_t>(chunkSizest);
 			unsigned char chunkSize[sizeof(uint32_t)] = {};
 
 			core::WriteBE32(chunkSize, size32);

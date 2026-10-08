@@ -19,7 +19,7 @@ namespace htb::building
 	{
 		if (m_Data.size() == sizeof(int32_t))
 		{
-			int32_t len =
+			const int32_t len =
 				static_cast<int32_t>(m_Data[0]) |
 				(static_cast<int32_t>(m_Data[1]) << 8) |
 				(static_cast<int32_t>(m_Data[2]) << 16) |
@@ -29,7 +29,7 @@ namespace htb::building
 		}
 		else if (m_Data.size() == sizeof(int16_t))
 		{
-			int16_t len =
+			const int16_t len =
 				static_cast<int16_t>(m_Data[0]) |
 				(static_cast<int16_t>(m_Data[1]) << 8);
 

@@ -35,23 +35,23 @@ namespace htb::archive
 	//======================================================================================
 	bool ArchiveSet::LoadArchives(const fs::path& a_Path)
 	{
-		fs::path sanitizedPath = a_Path.lexically_normal();
+		const fs::path sanitizedPath = a_Path.lexically_normal();
 		m_aArchives.clear();
 
 		core::Log(core::ELogLevel::INFO, "Loading archives from: " + sanitizedPath.filename().string() + ".");
 
 		std::vector<fs::path> paths;
 
-		fs::path folder = sanitizedPath.parent_path();
+		const fs::path folder = sanitizedPath.parent_path();
 
 		std::error_code ec;
-		fs::directory_iterator it(folder, ec);
+		const fs::directory_iterator it(folder, ec);
 		if (ec)
 		{
 			core::Log(core::ELogLevel::WARNING, "Failed to iterate directory: " + folder.string() + ".");
 			return false;
 		}
-		for (const auto& entry : it)
+		for (const fs::directory_entry& entry : it)
 		{
 			if (!entry.is_regular_file())
 			{
@@ -87,7 +87,7 @@ namespace htb::archive
 		for (const fs::path& filePath : paths)
 		{
 			std::unique_ptr<Archive> ptr = std::make_unique<Archive>();
-			std::string filename = filePath.filename().string();
+			const std::string filename = filePath.filename().string();
 			if (!ptr->Load(filePath))
 			{
 				continue;
@@ -133,7 +133,7 @@ namespace htb::archive
 			return;
 		}
 
-		parsing::Chunk* maxs = he0->GetRoot().TryFindChild(parsing::MAXS_CHUNK_ID);
+		const parsing::Chunk* maxs = he0->GetRoot().TryFindChild(parsing::MAXS_CHUNK_ID);
 		if (!maxs)
 		{
 			return;

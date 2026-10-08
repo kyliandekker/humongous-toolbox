@@ -29,8 +29,8 @@ namespace htb::parsing
 			return false;
 		}
 
-		std::string tag = a_Out.m_sTag;
-		auto it = SCHEMA.find(tag);
+		const std::string tag = a_Out.m_sTag;
+		const auto it = SCHEMA.find(tag);
 		const bool isContainer = it != SCHEMA.end() && !it->second.empty();
 
 		if (isContainer)

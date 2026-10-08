@@ -130,7 +130,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -158,7 +158,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -191,7 +191,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -240,7 +240,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint32_t len =
+		const uint32_t len =
 			static_cast<uint32_t>(a_pData[0]) |
 			(static_cast<uint32_t>(a_pData[1]) << 8) |
 			(static_cast<uint32_t>(a_pData[2]) << 16) |
@@ -262,7 +262,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -290,7 +290,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -323,7 +323,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -351,7 +351,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -379,7 +379,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -412,7 +412,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -444,7 +444,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -479,7 +479,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -516,7 +516,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -551,7 +551,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -570,7 +570,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -589,7 +589,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -608,7 +608,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -694,7 +694,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t type = a_pData[-3];
+		const uint8_t type = a_pData[-3];
 		size_t pos = 0;
 
 		if (type == 1)
@@ -723,7 +723,7 @@ namespace htb::script
 				EScriptArgType::STRING
 			);
 
-			size_t start = pos;
+			const size_t start = pos;
 
 			while (a_pData[pos] != 0)
 			{
@@ -745,7 +745,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 
@@ -764,7 +764,7 @@ namespace htb::script
 	{
 		std::vector<ArgInfo> args;
 
-		uint8_t cmd = a_pData[0];
+		const uint8_t cmd = a_pData[0];
 
 		args.emplace_back(sizeof(cmd), EScriptArgType::BYTE);
 

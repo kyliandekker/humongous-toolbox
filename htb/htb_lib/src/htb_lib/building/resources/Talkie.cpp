@@ -123,7 +123,7 @@ namespace htb::building
 			return 0;
 		}
 
-		HSHDData* hshdData = m_pHSHDChunk->GetData().dataAs<HSHDData>();
+		const HSHDData* hshdData = m_pHSHDChunk->GetData().dataAs<HSHDData>();
 		if (!hshdData)
 		{
 			core::Log(core::ELogLevel::_ERROR, "Could not get sample rate because the HSHD data was null.");

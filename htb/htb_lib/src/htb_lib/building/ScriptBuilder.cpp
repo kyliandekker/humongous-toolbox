@@ -39,7 +39,7 @@ namespace htb::building
 			size_t dataSize = data.size();
 			while (tell < dataSize)
 			{
-				uint8_t key = data[tell];
+				const uint8_t key = data[tell];
 				tell += 1; // key byte
 				if (key == 0x00)
 				{
@@ -76,7 +76,7 @@ namespace htb::building
 		{
 			if (a_Data[i] == 0x7F && a_Data[i + 1] == 0x54)
 			{
-				std::size_t a = i + 2;
+				const std::size_t a = i + 2;
 				std::size_t b = a;
 				while (b < a_Data.size() && a_Data[b] != 0x7F)
 				{
@@ -94,8 +94,8 @@ namespace htb::building
 				}
 				if (found == true)
 				{
-					std::string posStr = std::string(a_Data.dataAs<const char>() + a, comma - a);
-					std::string sizeStr = std::string(a_Data.dataAs<const char>() + comma + 1, b - comma - 1);
+					const std::string posStr = std::string(a_Data.dataAs<const char>() + a, comma - a);
+					const std::string sizeStr = std::string(a_Data.dataAs<const char>() + comma + 1, b - comma - 1);
 					TalkRef ref;
 					ref.pos = std::stoul(posStr);
 					ref.size = std::stoul(sizeStr);
@@ -193,8 +193,8 @@ namespace htb::building
 				return false;
 			}
 
-			size_t startTell = GetStartOfByteCode(chunk);
-			core::Data data = chunk->GetData();
+			const size_t startTell = GetStartOfByteCode(chunk);
+			const core::Data data = chunk->GetData();
 
 			Script script;
 			script.m_pChunk = chunk;
@@ -206,7 +206,7 @@ namespace htb::building
 				while (tell < data.size())
 				{
 					const unsigned char* pureDat = data.dataAs<unsigned char>() + tell;
-					uint8_t code = *pureDat;
+					const uint8_t code = *pureDat;
 
 					auto it = m_mOPCodeMap.find(code);
 
@@ -303,10 +303,10 @@ namespace htb::building
 						}
 						else if (arg.m_eArgumentType == script::EScriptArgType::REF)
 						{
-							int32_t jumpSize = arg.GetRefJump();
+							const int32_t jumpSize = arg.GetRefJump();
 
-							int32_t endOfArgumentPos = arg.GetOffsetFromInstruction() + instruction->GetOffsetFromFirstInstruction() + arg.m_Data.size();
-							int32_t jumpTo = endOfArgumentPos + jumpSize;
+							const int32_t endOfArgumentPos = arg.GetOffsetFromInstruction() + instruction->GetOffsetFromFirstInstruction() + arg.m_Data.size();
+							const int32_t jumpTo = endOfArgumentPos + jumpSize;
 
 							auto instructionIt = instructionsTable.find(static_cast<size_t>(jumpTo));
 
@@ -376,7 +376,7 @@ namespace htb::building
 							const TalkRef& talkRef = *it;
 
 							parsing::Chunk* talkChunk = arg.m_pTALKChunk;
-							std::string newTalkRef = std::to_string(talkChunk->GetOffsetFromRoot()) + "," + std::to_string(talkChunk->WholeChunkSize());
+							const std::string newTalkRef = std::to_string(talkChunk->GetOffsetFromRoot()) + "," + std::to_string(talkChunk->WholeChunkSize());
 
 							size_t restOfData = arg.m_Data.size() - (talkRef.offsetInStr + talkRef.strSize);
 							core::DataStream newData(talkRef.offsetInStr + newTalkRef.size() + restOfData);
@@ -407,23 +407,23 @@ namespace htb::building
 				{
 					if (arg.m_eArgumentType == script::EScriptArgType::REF)
 					{
-						int32_t jumpSize = arg.GetRefJump();
+						const int32_t jumpSize = arg.GetRefJump();
 
-						int32_t endOfArgumentPos = arg.GetOffsetFromInstruction() + instruction->GetOffsetFromFirstInstruction() + arg.m_Data.size();
+						const int32_t endOfArgumentPos = arg.GetOffsetFromInstruction() + instruction->GetOffsetFromFirstInstruction() + arg.m_Data.size();
 
-						int32_t jumpTo = endOfArgumentPos + jumpSize;
-						size_t actualOffset = arg.m_pJumpTo->GetOffsetFromFirstInstruction();
+						const int32_t jumpTo = endOfArgumentPos + jumpSize;
+						const size_t actualOffset = arg.m_pJumpTo->GetOffsetFromFirstInstruction();
 						if (jumpTo != actualOffset)
 						{
-							int32_t newJumpSize = actualOffset - endOfArgumentPos;
+							const int32_t newJumpSize = actualOffset - endOfArgumentPos;
 							arg.SetRefJump(newJumpSize);
 						}
 					}
 				}
 			}
 
-			size_t size = script.GetSize();
-			size_t startTell = GetStartOfByteCode(script.m_pChunk);
+			const size_t size = script.GetSize();
+			const size_t startTell = GetStartOfByteCode(script.m_pChunk);
 
 			core::DataStream newData(size + startTell);
 			if (startTell > 0)
@@ -431,7 +431,7 @@ namespace htb::building
 				newData.Write(script.m_pChunk->GetData().data(), startTell);
 			}
 
-			core::DataStream scriptData;
+			const core::DataStream scriptData;
 			script.ToData(newData);
 
 			script.m_pChunk->SetData(newData);

@@ -16,7 +16,7 @@ namespace htb::archive
 	//======================================================================================
 	bool Archive::Load(const fs::path& a_Path)
 	{
-		fs::path sanitizedPath = a_Path.lexically_normal();
+		const fs::path sanitizedPath = a_Path.lexically_normal();
 		if (!fs::exists(sanitizedPath))
 		{
 			core::Log(core::ELogLevel::_ERROR, "Failed to load: \"" + sanitizedPath.string() + "\": Path did not exist.");
@@ -29,10 +29,10 @@ namespace htb::archive
 			return false;
 		}
 
-		std::string extension = sanitizedPath.extension().string().substr(1);
+		const std::string extension = sanitizedPath.extension().string().substr(1);
 
 		// Unknown or Folder.
-		EArchiveType archiveType = archive::GetArchiveTypeFromExtension(extension);
+		const EArchiveType archiveType = archive::GetArchiveTypeFromExtension(extension);
 		if (archiveType < archive::EArchiveType::HE0)
 		{
 			core::Log(core::ELogLevel::_ERROR, "Failed to load: \"" + sanitizedPath.string() + "\": Unsupported archive type.");
