@@ -4,7 +4,7 @@
 #include <vector>
 
 #include <htb_lib/building/BuilderBase.h>
-#include <htb_lib/building/sound/Song.h>
+#include <htb_lib/building/resources/Song.h>
 
 namespace htb::archive
 {

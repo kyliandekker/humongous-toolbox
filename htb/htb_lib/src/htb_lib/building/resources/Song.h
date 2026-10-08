@@ -52,6 +52,11 @@ namespace htb::building
 		/// </summary>
 		/// <returns>The sample rate of the audio.</returns>
 		uint16_t GetSampleRate() const;
+
+		/// <summary>
+		/// Updates the data to the latest working version.
+		/// </summary>
+		void Update();
 	private:
 		parsing::Chunk* m_pSGENChunk = nullptr; // Header chunk. Points to DIGI.
 		parsing::Chunk* m_pDIGIChunk = nullptr; // Container chunk.

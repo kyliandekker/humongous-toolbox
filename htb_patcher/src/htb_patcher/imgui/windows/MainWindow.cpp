@@ -63,16 +63,16 @@ namespace htb::imgui
 	//======================================================================================
 	void MainWindow::Update()
 	{
-		ImVec2 padding = ImGui::GetStyle().ItemSpacing;
-		ImVec2 windowPos = ImGui::GetWindowPos();
-		ImVec2 windowSize = ImGui::GetWindowSize();
-		float headerHeight = ImGui::GetContentRegionAvail().y * 0.25f;
+		const ImVec2 padding = ImGui::GetStyle().ItemSpacing;
+		const ImVec2 windowPos = ImGui::GetWindowPos();
+		const ImVec2 windowSize = ImGui::GetWindowSize();
+		const float headerHeight = ImGui::GetContentRegionAvail().y * 0.25f;
 
 		if (m_pBackground)
 		{
 			ImDrawList* drawList = ImGui::GetWindowDrawList();
-			ImVec2 bgMin = windowPos;
-			ImVec2 bgMax(windowPos.x + windowSize.x, windowPos.y + headerHeight);
+			const ImVec2 bgMin = windowPos;
+			const ImVec2 bgMax(windowPos.x + windowSize.x, windowPos.y + headerHeight);
 
 			drawList->AddImage(
 				(ImTextureID) m_pBackground,
@@ -84,7 +84,7 @@ namespace htb::imgui
 
 			if (m_pLogoTexture)
 			{
-				float logoAspect = static_cast<float>(m_iLogoWidth) / static_cast<float>(m_iLogoHeight);
+				const float logoAspect = static_cast<float>(m_iLogoWidth) / static_cast<float>(m_iLogoHeight);
 				float logoHeight = headerHeight;
 				float logoWidth = logoHeight * logoAspect;
 				if (logoWidth > windowSize.x)
@@ -93,11 +93,11 @@ namespace htb::imgui
 					logoHeight = logoWidth / logoAspect;
 				}
 
-				ImVec2 logoMin(
+				const ImVec2 logoMin(
 					windowPos.x + (windowSize.x - logoWidth) * 0.5f,
 					windowPos.y + (headerHeight - logoHeight) * 0.5f
 				);
-				ImVec2 logoMax(logoMin.x + logoWidth, logoMin.y + logoHeight);
+				const ImVec2 logoMax(logoMin.x + logoWidth, logoMin.y + logoHeight);
 
 				drawList->AddImage(
 					(ImTextureID) m_pLogoTexture,
@@ -113,8 +113,8 @@ namespace htb::imgui
 
 		patch::Patcher& patcher = patch::GetPatcher();
 
-		std::string patcherVersion = patcher.GetVersion() + " using " + LIB_VERSION;
-		ImVec2 patcherTextSize = ImGui::CalcTextSize(patcherVersion.c_str());
+		const std::string patcherVersion = patcher.GetVersion() + " using " + LIB_VERSION;
+		const ImVec2 patcherTextSize = ImGui::CalcTextSize(patcherVersion.c_str());
 		ImGui::SetCursorPosX((ImGui::GetWindowWidth() - patcherTextSize.x) * 0.5f);
 		ImGui::Text("%s", patcherVersion.c_str());
 
@@ -148,11 +148,11 @@ namespace htb::imgui
 				{ MAIN_WINDOW_INSTALL_PATH_SPYFOX_3, MAIN_WINDOW_PATH_TO_SPYFOX_3, "icon_folder_spyfox3.svg", m_sSpyFox3Path },
 			};
 
-			std::string buttonText = std::string(icon::ICON_FOLDER) + MAIN_WINDOW_BROWSE;
+			const std::string buttonText = std::string(icon::ICON_FOLDER) + MAIN_WINDOW_BROWSE;
 
-			float iconSize = ImGui::GetFontSize() * 3.0f;
-			float browseButtonWidth = ImGui::CalcTextSize(buttonText.c_str()).x + ImGui::GetStyle().FramePadding.x * 2.0f;
-			float contentWidth = ImGui::GetContentRegionAvail().x;
+			const float iconSize = ImGui::GetFontSize() * 3.0f;
+			const float browseButtonWidth = ImGui::CalcTextSize(buttonText.c_str()).x + ImGui::GetStyle().FramePadding.x * 2.0f;
+			const float contentWidth = ImGui::GetContentRegionAvail().x;
 
 			ImGui::PushStyleColor(ImGuiCol_Button, ExtraColors[ImGuiExtraCol_AccentButton]);
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ExtraColors[ImGuiExtraCol_AccentButtonHovered]);
@@ -174,7 +174,7 @@ namespace htb::imgui
 				for (int game = 1; game <= 3; game++)
 				{
 					bool found = false;
-					std::string gameFolder = "Spy Fox " + std::to_string(game);
+					const std::string gameFolder = "Spy Fox " + std::to_string(game);
 
 					for (size_t j = 0; j < drives.size() && !found; j++)
 					{
@@ -250,8 +250,8 @@ namespace htb::imgui
 
 				if (icon)
 				{
-					int svgW = dx11::SVGTextureCache::GetWidth(rows[i].m_sIconName);
-					int svgH = dx11::SVGTextureCache::GetHeight(rows[i].m_sIconName);
+					const int svgW = dx11::SVGTextureCache::GetWidth(rows[i].m_sIconName);
+					const int svgH = dx11::SVGTextureCache::GetHeight(rows[i].m_sIconName);
 					float iconW = iconSize;
 					float iconH = iconSize;
 					if (svgW > 0 && svgH > 0)
@@ -340,11 +340,11 @@ namespace htb::imgui
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ExtraColors[ImGuiExtraCol_AccentButtonHovered]);
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ExtraColors[ImGuiExtraCol_AccentButtonActive]);
 
-			std::string patchButtonText = std::string(icon::ICON_PATCH) + MAIN_WINDOW_PATCH_BUTTON_TEXT;
-			std::string annulerenButtonText = std::string(icon::ICON_CANCEL) + MAIN_WINDOW_PATCH_BUTTON_CANCEL;
-			float buttonWidth = ImGui::CalcTextSize(patchButtonText.c_str()).x + ImGui::GetStyle().FramePadding.x * 2.0f;
-			float cancelWidth = ImGui::CalcTextSize(annulerenButtonText.c_str()).x + ImGui::GetStyle().FramePadding.x * 2.0f;
-			float totalButtonsWidth = buttonWidth + cancelWidth + ImGui::GetStyle().ItemSpacing.x;
+			const std::string patchButtonText = std::string(icon::ICON_PATCH) + MAIN_WINDOW_PATCH_BUTTON_TEXT;
+			const std::string annulerenButtonText = std::string(icon::ICON_CANCEL) + MAIN_WINDOW_PATCH_BUTTON_CANCEL;
+			const float buttonWidth = ImGui::CalcTextSize(patchButtonText.c_str()).x + ImGui::GetStyle().FramePadding.x * 2.0f;
+			const float cancelWidth = ImGui::CalcTextSize(annulerenButtonText.c_str()).x + ImGui::GetStyle().FramePadding.x * 2.0f;
+			const float totalButtonsWidth = buttonWidth + cancelWidth + ImGui::GetStyle().ItemSpacing.x;
 
 			ImGui::SetCursorPosX((contentWidth - totalButtonsWidth) * 0.5f);
 
@@ -385,20 +385,23 @@ namespace htb::imgui
 		}
 		ImGui::EndChild();
 
-		ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-		ImVec2 displaySize = ImGui::GetIO().DisplaySize;
-		ImVec2 popupSize(displaySize.x * 0.75f, displaySize.y * 0.5f);
+		const ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+		const ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+		const ImVec2 popupSize(displaySize.x * 0.75f, displaySize.y * 0.5f);
+
+		const std::string missingFoldersPopupName = FormatId(MAIN_WINDOW_POPUP_MISSING_FOLDERS, POPUP_WINDOW_ID, "MissingFolders");
+		const std::string failedPathPopupName = FormatId(MAIN_WINDOW_POPUP_FAILED, POPUP_WINDOW_ID, "FailedPatch");
 
 		if (m_bShowMissingFoldersPopup)
 		{
-			ImGui::OpenPopup(FormatId("MissingFolders", POPUP_WINDOW_ID).c_str());
+			ImGui::OpenPopup(missingFoldersPopupName.c_str());
 			m_bShowMissingFoldersPopup = false;
 		}
 
 		ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 		ImGui::SetNextWindowSize(popupSize, ImGuiCond_Appearing);
 
-		if (ImGui::BeginPopupModal(FormatId("MissingFolders", POPUP_WINDOW_ID).c_str(), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove))
+		if (ImGui::BeginPopupModal(missingFoldersPopupName.c_str(), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove))
 		{
 			ImGui::TextWrapped(MAIN_WINDOW_MISSING_FOLDERS_MESSAGE);
 
@@ -416,24 +419,20 @@ namespace htb::imgui
 
 		if (m_bShowFailedPopup)
 		{
-			ImGui::OpenPopup(FormatId("FailedPatch", POPUP_WINDOW_ID).c_str());
+			ImGui::OpenPopup(failedPathPopupName.c_str());
 			m_bShowFailedPopup = false;
 		}
 
 		ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 		ImGui::SetNextWindowSize(popupSize, ImGuiCond_Appearing);
 
-		if (ImGui::BeginPopupModal(FormatId("FailedPatch", POPUP_WINDOW_ID).c_str(), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove))
+		if (ImGui::BeginPopupModal(failedPathPopupName.c_str(), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove))
 		{
-			ImGui::TextWrapped(MAIN_WINDOW_PATCH_FAILED_MESSAGE);
+			ImGui::TextWrapped("%s", patch::GetPatcher().GetFailReason().c_str());
 
 			ImGui::Spacing();
 
-			ImGui::TextWrapped("\"%s\"", patch::GetPatcher().GetFailReason().c_str());
-
-			ImGui::Spacing();
-
-			float buttonWidth = 120.0f;
+			const float buttonWidth = 120.0f;
 			ImGui::SetCursorPosX((ImGui::GetWindowWidth() - buttonWidth) * 0.5f);
 			if (ImGui::Button("OK", ImVec2(buttonWidth, 0)))
 			{
