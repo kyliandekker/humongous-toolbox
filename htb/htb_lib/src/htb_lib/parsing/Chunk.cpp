@@ -67,25 +67,26 @@ namespace htb::parsing
 	//======================================================================================
 	bool Chunk::TryFindChildren(const std::string_view& a_sChunkID, std::vector<Chunk*>& a_aChunks)
 	{
-		if (m_sTag == a_sChunkID)
-		{
-			a_aChunks.push_back(this);
-		}
-		for (std::unique_ptr<Chunk>& chunk : m_aChildren)
-		{
-			chunk->TryFindChildren(a_sChunkID, a_aChunks);
-		}
+		a_aChunks.clear();
+
+		TryFindChildren(a_sChunkID, [&a_aChunks](parsing::Chunk* chunk)
+			{
+				a_aChunks.push_back(chunk);
+			});
 		return !a_aChunks.empty();
 	}
 
+	//======================================================================================
     void Chunk::TryFindChildren(const std::string_view& a_sChunkID, std::function<void(Chunk*)> a_fnCallback)
     {
-		if (m_sTag == a_sChunkID)
+		// Recursively search all children.
+		for (const std::unique_ptr<Chunk>& chunk : m_aChildren)
 		{
-			a_fnCallback(this);
-		}
-		for (std::unique_ptr<Chunk>& chunk : m_aChildren)
-		{
+			if (chunk->GetTag() == a_sChunkID)
+			{
+				a_fnCallback(chunk.get());
+			}
+
 			chunk->TryFindChildren(a_sChunkID, a_fnCallback);
 		}
     }
@@ -93,11 +94,32 @@ namespace htb::parsing
 	//======================================================================================
 	bool Chunk::TryFindChildren(const std::vector<std::string_view>& a_sChunkIDs, std::vector<Chunk*>& a_aChunks)
 	{
-		for (const std::string_view& view : a_sChunkIDs)
+		a_aChunks.clear();
+
+		TryFindChildren(a_sChunkIDs, [&a_aChunks](parsing::Chunk* chunk)
 		{
-			TryFindChildren(view, a_aChunks);
-		}
+			a_aChunks.push_back(chunk);
+		});
 		return !a_aChunks.empty();
+	}
+
+	//======================================================================================
+	void Chunk::TryFindChildren(const std::vector<std::string_view>& a_sChunkIDs, std::function<void(Chunk*)> a_fnCallback)
+	{
+		// Recursively search all children.
+		for (const std::unique_ptr<Chunk>& chunk : m_aChildren)
+		{
+			for (const std::string_view& view : a_sChunkIDs)
+			{
+				if (chunk->GetTag() == view)
+				{
+					a_fnCallback(chunk.get());
+					break; // Avoid reporting the same Chunk twice.
+				}
+			}
+
+			chunk->TryFindChildren(a_sChunkIDs, a_fnCallback);
+		}
 	}
 
 	//======================================================================================

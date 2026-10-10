@@ -78,6 +78,12 @@ namespace htb::parsing
 		bool TryFindChildren(const std::vector<std::string_view>& a_sChunkIDs, std::vector<Chunk*>& a_aChunks);
 
 		/// <summary>
+		/// Recursively searches for child chunks with the specified tag.
+		/// </summary>
+		/// <param name="a_sChunkID">The 4-character chunk tag to search for.</param>
+		void TryFindChildren(const std::vector<std::string_view>& a_sChunkIDs, std::function<void(Chunk*)> a_fnCallback);
+
+		/// <summary>
 		/// Recursively searches for parent chunks with the specified tag.
 		/// </summary>
 		/// <param name="a_sChunkID">The 4-character chunk tag to search for.</param>

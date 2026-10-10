@@ -3,6 +3,7 @@
 #include <htb_lib/core/Log.h>
 #include <htb_lib/building/resources/Song.h>
 #include <htb_lib/parsing/ChunkIDs.h>
+#include <htb_lib/building/resources/Script.h>
 
 using namespace htb;
 
@@ -46,21 +47,22 @@ int main()
 		}
 	}
 
-	if (!he4)
+	if (!a)
 	{
 		core::DestroyLog();
 		return 1;
 	}
 
-	building::HE4Builder he4Builder;
-	if (!he4Builder.Bind(set))
-	{
-		core::Log(core::ELogLevel::_ERROR, "Could not bind HE4.");
-		core::DestroyLog();
-		return 0;
-	}
+	script::OPCodeMap m_mOPCodeMap;
+	script::GetOPCodeTable(m_mOPCodeMap, set.GetScriptVersion(), set.GetHEVersion());
 
-	he4Builder.Build();
+	parsing::Chunk* scrpChunk = a->GetRoot().FindChunkAt(111272);
+	if (!scrpChunk)
+	{
+		core::DestroyLog();
+		return 1;
+	}
+	building::Script script(*scrpChunk, m_mOPCodeMap);
 
 	core::DestroyLog();
 	return 0;

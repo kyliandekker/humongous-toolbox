@@ -10,7 +10,7 @@
 #include <htb_lib/core/Log.h>
 #include <htb_lib/file/file.h>
 #include <htb_lib/xml/XMLCreator.h>
-#include <htb_lib/xml/XMLStruct.h>
+#include <htb_lib/xml/XMLSettings.h>
 
 #include "htb_cli/cmd/CommandParser.h"
 

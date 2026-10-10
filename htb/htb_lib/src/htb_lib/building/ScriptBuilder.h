@@ -5,7 +5,7 @@
 #include <vector>
 
 #include <htb_lib/script/OPCodesHENew.h>
-#include <htb_lib/building/script/Script.h>
+#include <htb_lib/building/resources/Script.h>
 
 namespace htb::archive
 {
