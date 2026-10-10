@@ -1,7 +1,25 @@
 {
   "FileVersion": 2,
-  "Id": "68317d85-9b68-33e1-9c34-23abbb6c10b0",
+  "Id": "d5d84cbe-c990-332d-8cb8-9d38bd2b4b19",
   "Items": [
+    {
+      "Id": "f9db4452-d5a5-4259-a003-2b6af77bb2ae",
+      "Command": "extract",
+      "Items": [
+        {
+          "Id": "69815752-08ff-4b74-84c2-80789c4c81a1",
+          "Command": "extract"
+        },
+        {
+          "Id": "ca5cd85f-c705-4c37-ae95-90ef3eef673c",
+          "Command": "\"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Spy Fox 3\\SPYOZON.HE2\""
+        },
+        {
+          "Id": "1ce74956-f467-48af-b7fe-2d8021d6362e",
+          "Command": "--output=\"C:\\Program Files (x86)\\Steam\""
+        }
+      ]
+    },
     {
       "Id": "f3cb68ee-986d-4615-9d9b-7a16de918fd3",
       "Command": "xml",

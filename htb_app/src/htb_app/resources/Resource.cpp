@@ -658,6 +658,7 @@ namespace htb::resources
 	//---------------------------------------------------------------------
 	void RoomImageResource::Open()
 	{
+		size_t offset = m_pDataChunk->GetOffsetFromRoot();
 		m_aColors.clear();
 
 		// SMAP is the data chunk.

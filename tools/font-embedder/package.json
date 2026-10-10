@@ -1,5 +1,5 @@
 {
-  "name": "kut",
+  "name": "font-embedder",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -8,7 +8,7 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Embeds font into a C++ header, css style and html.",
   "dependencies": {
     "inquirer": "^12.4.1",
     "open": "^10.1.0",

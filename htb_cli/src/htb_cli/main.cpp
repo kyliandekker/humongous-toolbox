@@ -6,9 +6,10 @@
 #include <htb_lib/core/Log.h>
 
 #include "htb_cli/cmd/Command.h"
-#include "htb_cli/cmd/commands/XmlCommand.h"
-#include "htb_cli/cmd/commands/SummaryCommand.h"
 #include "htb_cli/cmd/commands/DecryptCommand.h"
+#include "htb_cli/cmd/commands/ExtractCommand.h"
+#include "htb_cli/cmd/commands/SummaryCommand.h"
+#include "htb_cli/cmd/commands/XmlCommand.h"
 
 static void PrintUsage(const std::vector<std::unique_ptr<htb::cmd::Command>>& a_Commands)
 {
@@ -26,9 +27,10 @@ int main(int argc, char* argv[])
 	htb::core::InitializeLog();
 
 	std::vector<std::unique_ptr<htb::cmd::Command>> commands;
-	commands.push_back(std::make_unique<htb::cmd::XmlCommand>());
-	commands.push_back(std::make_unique<htb::cmd::SummaryCommand>());
 	commands.push_back(std::make_unique<htb::cmd::DecryptCommand>());
+	commands.push_back(std::make_unique<htb::cmd::ExtractCommand>());
+	commands.push_back(std::make_unique<htb::cmd::SummaryCommand>());
+	commands.push_back(std::make_unique<htb::cmd::XmlCommand>());
 
 	if (argc < 2)
 	{

@@ -1,0 +1,14 @@
+{
+  "name": "speecher",
+  "version": "1.0.0",
+  "description": "Speech recognition for audio files, that then get put in an excel sheet and C++ header file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodejs-whisper": "^0.3.1"
+  }
+}

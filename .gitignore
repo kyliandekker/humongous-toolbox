@@ -120,3 +120,7 @@ Makefile
 .DS_Store
 Thumbs.db
 desktop.ini
+
+sf3/
+sf2/
+sf1/

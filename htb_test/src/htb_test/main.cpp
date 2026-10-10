@@ -11,7 +11,7 @@ int main()
 {
 	core::InitializeLog();
 
-	fs::path archivesPath = "C:/Program Files (x86)/Steam/steamapps/common/Spy Fox 3/SPYOZON.HE2";
+	const fs::path archivesPath = "C:/Program Files (x86)/Steam/steamapps/common/Spy Fox 3/SPYOZON.HE2";
 
 	archive::ArchiveSet set;
 

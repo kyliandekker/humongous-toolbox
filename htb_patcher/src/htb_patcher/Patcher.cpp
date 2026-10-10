@@ -272,7 +272,7 @@ namespace htb::patch
 					throw std::runtime_error(PATCHER_ERROR_FIND_TALKS_SPY_FOX_2);
 				}
 
-				for (const auto& patches : SF2_VO_INDEX)
+				for (const auto& patches : SF2_TALKIE_INDEX)
 				{
 					building::Talkie& sf2Talkie = sf2Talkies[patches.first];
 					building::Talkie& sf3Talkie = sf3Talkies[patches.second];
@@ -325,7 +325,7 @@ namespace htb::patch
 					throw std::runtime_error(PATCHER_ERROR_FIND_TALKS_SPY_FOX_1);
 				}
 
-				for (const auto& patches : SF1_VO_INDEX)
+				for (const auto& patches : SF1_TALKIE_INDEX)
 				{
 					building::Talkie& sf1Talkie = sf1Talkies[patches.first];
 					building::Talkie& sf3Talkie = sf3Talkies[patches.second];

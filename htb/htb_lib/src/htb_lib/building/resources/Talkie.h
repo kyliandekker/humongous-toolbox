@@ -30,10 +30,10 @@ namespace htb::building
 		Talkie();
 
 		/// <summary>
-		/// Constructs a talk. Provided chunk MUST be SGEN.
+		/// Constructs a talk. Provided chunk MUST be TALK.
 		/// </summary>
-		/// <param name="a_SGENChunk">The SGEN chunk.</param>
-		Talkie(parsing::Chunk& a_SGENChunk);
+		/// <param name="a_TALKChunk">The TALK chunk.</param>
+		Talkie(parsing::Chunk& a_TALKChunk);
 
 		/// <summary>
 		/// Returns the audio data (PCM).

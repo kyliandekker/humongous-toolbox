@@ -29,4 +29,5 @@ namespace htb::building
 		};
 		uint32_t unknown7 = 6747836;
 	};
+#pragma pack(pop)
 }
