@@ -87,7 +87,7 @@ namespace ImGui
 		/// <returns>True if initialization is successful, otherwise false.</returns>
 		virtual bool OnInitialized() = 0;
 
-		virtual void Update() = 0;
+		virtual void OnUpdate() = 0;
 
 		bool m_bVisible = true;
 		bool m_bHideCloseButton = true;

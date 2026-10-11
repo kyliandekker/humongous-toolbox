@@ -12,7 +12,7 @@ namespace ImGui
 	{}
 
 	//---------------------------------------------------------------------
-	void MainWindowDock::Update()
+	void MainWindowDock::OnUpdate()
 	{
 		ImGui::DockSpace(ImGui::GetID("DockSpace"));
 	}

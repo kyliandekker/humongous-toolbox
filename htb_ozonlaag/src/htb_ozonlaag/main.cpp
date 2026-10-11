@@ -67,13 +67,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lp
 	const ImColor clearColor = IM_COL32(26, 20, 40, 255);
 
 	const fs::path appDataPath = htb::file::GetAppDataPath();
-	htb::patch::Patcher& patcher = htb::patch::GetPatcher();
-	patcher.SetWorkingPath(appDataPath);
-
-	//htb::patch::GetPatcher().LoadSettings();
+	htb::ozonlaag::OzonlaagPatcher* patcher = htb::ozonlaag::GetOzonlaagPatcher();
+	patcher->SetWorkingPath(appDataPath);
+	patcher->Initialize();
 
 	htb::imgui::ImGuiSystem& imguiSystem = htb::imgui::GetImGuiSystem();
-	imguiSystem.SetIniPath(patcher.GetWorkingPath());
+	imguiSystem.SetIniPath(patcher->GetWorkingPath());
 	imguiSystem.Initialize();
 
 	htb::dx11::DX11System& dx11System = htb::dx11::GetDX11System();

@@ -10,6 +10,9 @@ namespace htb::ozonlaag
 	class OzonlaagPatcherSettings
 	{
 	public:
+		void Load(const fs::path& a_SavePath);
+		void Save(const fs::path& a_SavePath) const;
+
 		const fs::path& GetSpyFox1Path() const;
 		void SetSpyFox1Path(const fs::path& a_SpyFox1Path);
 

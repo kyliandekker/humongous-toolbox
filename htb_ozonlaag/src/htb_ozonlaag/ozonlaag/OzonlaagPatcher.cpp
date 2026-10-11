@@ -2,6 +2,8 @@
 
 namespace htb::ozonlaag
 {
+	constexpr auto OZONLAAG_SETTINGS_NAME = "settings.conf";
+
 	//======================================================================================
 	OzonlaagPatcher* GetOzonlaagPatcher()
 	{
@@ -16,7 +18,37 @@ namespace htb::ozonlaag
 	{}
 
 	//======================================================================================
+	void OzonlaagPatcher::Initialize()
+	{
+		LoadSettings();
+	}
+
+	//======================================================================================
 	void OzonlaagPatcher::ApplyPatch()
 	{
+	}
+
+	//======================================================================================
+	const OzonlaagPatcherSettings& OzonlaagPatcher::GetSettings() const
+	{
+		return m_Settings;
+	}
+
+	//======================================================================================
+    OzonlaagPatcherSettings& OzonlaagPatcher::GetSettings()
+    {
+		return m_Settings;
+    }
+
+	//======================================================================================
+	void OzonlaagPatcher::SaveSettings() const
+	{
+		m_Settings.Save(m_WorkingPath / OZONLAAG_SETTINGS_NAME);
+	}
+
+	//======================================================================================
+	void OzonlaagPatcher::LoadSettings()
+	{
+		m_Settings.Load(m_WorkingPath / OZONLAAG_SETTINGS_NAME);
 	}
 }

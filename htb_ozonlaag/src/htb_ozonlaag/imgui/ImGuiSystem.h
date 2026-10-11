@@ -38,6 +38,8 @@ namespace htb::imgui
 	class ImGuiSystem
 	{
 	public:
+		virtual ~ImGuiSystem();
+
 		/// <summary>
 		/// Constructs the ImGui system.
 		/// </summary>

@@ -63,7 +63,7 @@ namespace htb::patch
 		/// </summary>
 		/// <returns>Observable status message that can be listened to, or read.</returns>
 		const core::Observable<std::string>& GetStatusMessage() const;
-	private:
+	protected:
 		std::string m_sName = "Unknown Patch";
 		std::string m_sVersion = "htb_patcher v0.0.1b";
 		fs::path m_WorkingPath;

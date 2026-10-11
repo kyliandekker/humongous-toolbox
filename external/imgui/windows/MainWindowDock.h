@@ -21,6 +21,6 @@ namespace ImGui
 		/// <summary>
 		/// Renders the element.
 		/// </summary>
-		void Update() override;
+		void OnUpdate() override;
 	};
 }

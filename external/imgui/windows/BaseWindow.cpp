@@ -80,7 +80,7 @@ namespace ImGui
 
 		if (m_bBegin && m_bInitialized)
 		{
-			Update();
+			OnUpdate();
 		}
 
 		if (!m_bRenderWindowItself)
