@@ -52,6 +52,7 @@ Other formats might be supported but have not been tested.
 - [NanoSVG](https://github.com/memononen/nanosvg) SVG parser and rasterizer
 - [stb_image](https://github.com/nothings/stb) Image loading and saving
 - [RapidJSON](https://github.com/Tencent/rapidjson) JSON parser/serializer
+- [Tinyxml](https://github.com/leethomason/tinyxml2) XML parser
 
 ## License
 
