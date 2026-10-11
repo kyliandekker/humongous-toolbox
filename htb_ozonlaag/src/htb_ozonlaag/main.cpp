@@ -11,8 +11,17 @@
 #include <htb_lib_win32/win32/Win32Window.h>
 #include <htb_lib_win32/win32/winfile.h>
 
-#include "htb_patcher/imgui/ImGuiSystem.h"
-#include "htb_patcher/Patcher.h"
+#include "htb_ozonlaag/imgui/ImGuiSystem.h"
+#include "htb_ozonlaag/ozonlaag/OzonlaagPatcher.h"
+
+namespace htb::patch
+{
+	Patcher& GetPatcher()
+	{
+		static OzonlaagPatcher patcher;
+		return patcher;
+	}
+}
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -21,11 +30,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lp
 	htb::core::InitializeLog();
 
 	ImGui_ImplWin32_EnableDpiAwareness();
-	float mainScale = ImGui_ImplWin32_GetDpiScaleForMonitor(::MonitorFromPoint(POINT{ 0, 0 }, MONITOR_DEFAULTTOPRIMARY));
+	const float mainScale = ImGui_ImplWin32_GetDpiScaleForMonitor(::MonitorFromPoint(POINT{ 0, 0 }, MONITOR_DEFAULTTOPRIMARY));
 
 	htb::win32::Win32Window& window = htb::win32::GetWin32Window();
-	std::string appName = "Spy Fox 3: Operatie Ozonlaag - Patcher (" + htb::patch::GetPatcher().GetVersion() + ")";
-	std::wstring wAppName(appName.begin(), appName.end());
+	const std::string windowName = "Spy Fox 3: Operatie Ozonlaag - Patcher";
+	const std::wstring wAppName(windowName.begin(), windowName.end());
 	window.SetData(hInstance, (int)(400 * mainScale), (int)(700 * mainScale), wAppName.c_str());
 	if (!window.Initialize())
 	{
@@ -43,14 +52,19 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lp
 
 	window.Show(SW_SHOWDEFAULT);
 
-	ImColor clearColor = IM_COL32(26, 20, 40, 255);
+	const ImColor clearColor = IM_COL32(26, 20, 40, 255);
 
-	fs::path appDataPath = htb::file::GetAppDataPath().string() + "/operatie_ozonlaag_patcher";
-	htb::file::CreateFolder(appDataPath);
+	const fs::path appDataPath = htb::file::GetAppDataPath();
+	htb::patch::Patcher& patcher = htb::patch::GetPatcher();
+	patcher.SetWorkingPath(appDataPath);
 
-	htb::patch::GetPatcher().SetSavePath(appDataPath);
-	htb::patch::GetPatcher().LoadSettings();
-	htb::imgui::GetImGuiSystem().Initialize();
+	//htb::patch::GetPatcher().LoadSettings();
+
+	htb::imgui::ImGuiSystem& imguiSystem = htb::imgui::GetImGuiSystem();
+	imguiSystem.SetIniPath(patcher.GetWorkingPath());
+	imguiSystem.Initialize();
+
+	htb::dx11::DX11System& dx11System = htb::dx11::GetDX11System();
 
 	bool running = true;
 	while (running)
@@ -65,22 +79,21 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lp
 		{
 			uint32_t width = 0, height = 0;
 			window.ConsumeResize(width, height);
-			htb::dx11::GetDX11System().Resize(width, height);
+			dx11System.Resize(width, height);
 		}
 
-		const float clear_color_with_alpha[4] = { clearColor.Value.x * clearColor.Value.w, clearColor.Value.y * clearColor.Value.w, clearColor.Value.z * clearColor.Value.w, clearColor.Value.w };
-		htb::dx11::GetDX11System().BeginFrame(clear_color_with_alpha);
+		const float clearColorWithAlpha[4] = { clearColor.Value.x * clearColor.Value.w, clearColor.Value.y * clearColor.Value.w, clearColor.Value.z * clearColor.Value.w, clearColor.Value.w };
+		dx11System.BeginFrame(clearColorWithAlpha);
 
-		htb::imgui::GetImGuiSystem().Render();
+		imguiSystem.Render();
+		imguiSystem.UpdateMouseCursor();
 
-		htb::imgui::GetImGuiSystem().UpdateMouseCursor();
-
-		htb::dx11::GetDX11System().EndFrame(1);
+		dx11System.EndFrame(1);
 	}
 
-	htb::imgui::GetImGuiSystem().Destroy();
+	imguiSystem.Destroy();
 
-	htb::patch::GetPatcher().Join();
+	//htb::patch::GetPatcher().Join();
 
 	htb::dx11::SVGTextureCache::Shutdown();
 	htb::dx11::GetDX11System().Destroy();

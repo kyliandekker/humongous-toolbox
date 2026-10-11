@@ -7,9 +7,9 @@ namespace htb
 	constexpr auto MAIN_WINDOW_MISSING_FOLDERS_MESSAGE = "Vul alle drie de installatiemappen in voordat je doorgaat.";
 	constexpr auto MAIN_WINDOW_PATCH_BUTTON_TEXT = " Patch";
 	constexpr auto MAIN_WINDOW_PATCH_BUTTON_CANCEL = " Annuleren";
-	constexpr auto MAIN_WINDOW_PATH_TO_SPYFOX_1 = "Path to Spy Fox 1...";
-	constexpr auto MAIN_WINDOW_PATH_TO_SPYFOX_2 = "Path to Spy Fox 2...";
-	constexpr auto MAIN_WINDOW_PATH_TO_SPYFOX_3 = "Path to Spy Fox 3...";
+	constexpr auto MAIN_WINDOW_PATH_TO_SPYFOX_1 = "Pad naar Spy Fox 1...";
+	constexpr auto MAIN_WINDOW_PATH_TO_SPYFOX_2 = "Pad naar Spy Fox 2...";
+	constexpr auto MAIN_WINDOW_PATH_TO_SPYFOX_3 = "Pad naar Spy Fox 3...";
 	constexpr auto MAIN_WINDOW_INSTALL_PATH_SPYFOX_1 = "Spy Fox 1 installatiemap: ";
 	constexpr auto MAIN_WINDOW_INSTALL_PATH_SPYFOX_2 = "Spy Fox 2 installatiemap: ";
 	constexpr auto MAIN_WINDOW_INSTALL_PATH_SPYFOX_3 = "Spy Fox 3 installatiemap: ";

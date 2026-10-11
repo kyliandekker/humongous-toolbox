@@ -31,10 +31,12 @@ add_compile_definitions($<$<CONFIG:Debug>:_DEBUG>)
 # Include modules
 include(htb/htb_lib/htb_lib.cmake)
 include(htb/htb_lib_gui/htb_lib_gui.cmake)
+include(htb/htb_lib_patcher/htb_lib_patcher.cmake)
 
 # Libraries
 set_property(TARGET htb_lib PROPERTY FOLDER "htb_libs")
 set_property(TARGET htb_lib_gui PROPERTY FOLDER "htb_libs")
+set_property(TARGET htb_lib_patcher PROPERTY FOLDER "htb_libs")
 
 # Platform-specific modules (Win32 only)
 if(WIN32)
@@ -49,8 +51,8 @@ if(WIN32)
 	include(htb/htb_lib_win32/htb_lib_win32.cmake)
 	set_property(TARGET htb_lib_win32 PROPERTY FOLDER "htb_libs")
 
-	include(htb_patcher/htb_patcher.cmake)
-	set_property(TARGET htb_patcher PROPERTY FOLDER "htb_exe")
+	include(htb_ozonlaag/htb_ozonlaag.cmake)
+	set_property(TARGET htb_ozonlaag PROPERTY FOLDER "htb_exe")
 
 	include(htb_app/htb_app.cmake)
 	set_property(TARGET htb_app PROPERTY FOLDER "htb_exe")

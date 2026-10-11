@@ -139,10 +139,6 @@ namespace htb::imgui
 
 		float m_fFontSize = 0.0f; /// Default font size for ImGui.
 
-		std::unique_ptr<ImGui::BaseWindow> m_pMainWindow;
-		std::unique_ptr<ImGui::BaseWindow> m_pPatchingWindow;
-		std::unique_ptr<ImGui::BaseWindow> m_pFinishedWindow;
-
 		std::string m_sIniPath;
 
 		friend htb::dx11::DX11System;

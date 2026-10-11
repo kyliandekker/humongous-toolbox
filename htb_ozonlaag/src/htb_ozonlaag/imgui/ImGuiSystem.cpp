@@ -1,6 +1,5 @@
 #include "ImGuiSystem.h"
 
-// external
 #include <imgui/backends/imgui_impl_win32.h>
 #include <imgui/backends/imgui_impl_dx11.h>
 #include <imgui/imgui_internal.h>
@@ -12,11 +11,7 @@
 #include <htb_lib_win32/win32/Win32Window.h>
 
 #include "htb_patcher/imgui/Theme.h"
-#include "htb_patcher/imgui/windows/MainWindow.h"
-#include "htb_patcher/imgui/windows/PatchingWindow.h"
-#include "htb_patcher/imgui/windows/FinishedWindow.h"
 #include "htb_patcher/imgui/font_icon_patch.h"
-#include "htb_patcher/Patcher.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -57,15 +52,6 @@ namespace htb::imgui
 		GetClientRect(window.GetHandle(), &rc);
 		Resize(rc.right - rc.left, rc.bottom - rc.top);
 
-		m_pMainWindow = std::make_unique<MainWindow>();
-		m_pPatchingWindow = std::make_unique<PatchingWindow>();
-		m_pPatchingWindow->Close();
-		m_pFinishedWindow = std::make_unique<FinishedWindow>();
-		m_pFinishedWindow->Close();
-
-		patch::GetPatcher().GetOnPatchStateChanged() += std::bind(&ImGuiSystem::OnPatchStateChanged, this, std::placeholders::_1);
-		SetIniPath(patch::GetPatcher().GetSavePath());
-
 		InitializeWindows();
 
 		return true;
@@ -74,10 +60,6 @@ namespace htb::imgui
 	//---------------------------------------------------------------------
 	bool ImGuiSystem::InitializeWindows()
 	{
-		m_pMainWindow->Initialize();
-		m_pPatchingWindow->Initialize();
-		m_pFinishedWindow->Initialize();
-
 		return true;
 	}
 
@@ -159,43 +141,6 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void ImGuiSystem::OnPatchStateChanged(patch::PatchState a_ePatchState)
-	{
-		switch (a_ePatchState)
-		{
-			case patch::PatchState::NONE:
-			{
-				m_pMainWindow->Open();
-				m_pPatchingWindow->Close();
-				m_pFinishedWindow->Close();
-				break;
-			}
-			case patch::PatchState::FAILED:
-			{
-				static_cast<MainWindow*>(m_pMainWindow.get())->ShowFailedPopup();
-				m_pMainWindow->Open();
-				m_pPatchingWindow->Close();
-				m_pFinishedWindow->Close();
-				break;
-			}
-			case patch::PatchState::PATCHING:
-			{
-				m_pMainWindow->Close();
-				m_pPatchingWindow->Open();
-				m_pFinishedWindow->Close();
-				break;
-			}
-			case patch::PatchState::FINALIZED:
-			{
-				m_pMainWindow->Close();
-				m_pPatchingWindow->Close();
-				m_pFinishedWindow->Open();
-				break;
-			}
-		}
-	}
-
-	//---------------------------------------------------------------------
 	void ImGuiSystem::Resize(uint32_t a_iWidth, uint32_t a_iHeight)
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -211,10 +156,6 @@ namespace htb::imgui
 		ImGui::NewFrame();
 
 		const ImGuiIO& io = ImGui::GetIO();
-
-		m_pMainWindow->Render();
-		m_pPatchingWindow->Render();
-		m_pFinishedWindow->Render();
 
 		ImGui::EndFrame();
 		ImGui::Render();

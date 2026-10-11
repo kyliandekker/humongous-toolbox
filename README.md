@@ -8,9 +8,11 @@ A file archive viewer for Humongous Entertainment game data files. Supports pars
 |---|---|---|
 | `htb_lib` | Static library | Core parsing library for file I/O, data streams, chunk tree parsing, wave loading (cross-platform) |
 | `htb_lib_win32` | Static library | Win32 specifics like window, DX11 |
-| `htb_patcher` | Win32 executable | GUI application that is used for patching SpyFox 3 to Dutch |
+| `htb_lib_patcher` | Static library | Patcher classes, can be reused to make patches for games |
+| `htb_ozonlaag` | Win32 executable | GUI application that is used for patching SpyFox 3 to Dutch |
 | `htb_app` | Win32 executable | GUI application that is used for visual preview of archives, not meant for replacing |
 | `htb_cli` | Console executable | CLI tool for batch operations (cross-platform) |
+| `htb_test` | Console executable | Simple console executable to test new functionality without having to load the whole GUI application |
 
 ## Building
 
@@ -19,7 +21,7 @@ A file archive viewer for Humongous Entertainment game data files. Supports pars
 - CMake 3.20+
 - A C++20 compiler (MSVC 2022, GCC 10+ or Clang 12+)
 
-`htb_lib` and `htb_cli` build on Windows, Linux and macOS. The GUI modules (`htb_lib_win32`, `htb_patcher`, `htb_app`) are only configured on Windows and require Visual Studio 2022.
+`htb_lib` and `htb_cli` build on Windows, Linux and macOS. The GUI modules (`htb_lib_win32`, `htb_ozonlaag`, `htb_app`) are only configured on Windows and require Visual Studio 2022.
 
 ### Build
 
@@ -57,7 +59,7 @@ See individual third-party libraries for their respective licenses.
 
 ## Future plans
 
-- Make Linux library for patching and inspecting on Linux.
+- Make Linux GUI application for patching and inspecting on Linux.
 - Replace images and backgrounds.
 - Look into costumes and character sprites.
 - Do more research on the rest of the extensions for archives such as HE1, HE3, HE6, HE8 and HE9.
