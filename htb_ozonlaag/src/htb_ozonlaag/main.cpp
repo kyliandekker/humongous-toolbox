@@ -11,6 +11,8 @@
 #include <htb_lib_win32/win32/Win32Window.h>
 #include <htb_lib_win32/win32/winfile.h>
 
+#include <htb_lib_patcher/patch/PatcherState.h>
+
 #include "htb_ozonlaag/imgui/ImGuiSystem.h"
 #include "htb_ozonlaag/ozonlaag/OzonlaagPatcher.h"
 #include "htb_ozonlaag/ozonlaag/imgui/OzonlaagImGuiSystem.h"
@@ -35,6 +37,16 @@ namespace htb::imgui
 
 //======================================================================================
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+//======================================================================================
+void OnPatchStateChanged(htb::patch::EPatcherState a_ePrevState, htb::patch::EPatcherState a_eNewState)
+{
+	if (a_ePrevState == htb::patch::EPatcherState::FAILED || a_ePrevState == htb::patch::EPatcherState::FINISHED)
+	{
+		htb::ozonlaag::OzonlaagPatcher* patcher = htb::ozonlaag::GetOzonlaagPatcher();
+		patcher->Join();
+	}
+}
 
 //======================================================================================
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
@@ -69,6 +81,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lp
 	const fs::path appDataPath = htb::file::GetAppDataPath();
 	htb::ozonlaag::OzonlaagPatcher* patcher = htb::ozonlaag::GetOzonlaagPatcher();
 	patcher->SetWorkingPath(appDataPath);
+	patcher->GetPatcherState().OnChanged() += OnPatchStateChanged;
 	patcher->Initialize();
 
 	htb::imgui::ImGuiSystem& imguiSystem = htb::imgui::GetImGuiSystem();
@@ -104,7 +117,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lp
 
 	imguiSystem.Destroy();
 
-	//htb::patch::GetPatcher().Join();
+	patcher->Join();
 
 	htb::dx11::SVGTextureCache::Shutdown();
 	htb::dx11::GetDX11System().Destroy();

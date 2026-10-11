@@ -22,14 +22,10 @@ namespace htb::ozonlaag
 		OzonlaagPatcher();
 
 		/// <summary>
-		/// Initializes the Ozonlaag patcher.
+		/// Gets the version string of the patcher.
 		/// </summary>
-		void Initialize();
-
-		/// <summary>
-		/// Starts the patch process on a background thread.
-		/// </summary>
-		void ApplyPatch() override;
+		/// <returns>A const reference to the version string.</returns>
+		const std::string& GetVersion() const override;
 
 		/// <summary>
 		/// Retrieves the patcher settings.
@@ -53,6 +49,17 @@ namespace htb::ozonlaag
 		/// </summary>
 		void LoadSettings();
 	private:
+		/// <summary>
+		/// Initializes the Ozonlaag patcher.
+		/// </summary>
+		void OnInitialized() override;
+
+		/// <summary>
+		/// Starts the patch process on a background thread.
+		/// </summary>
+		void OnPatchApplied() override;
+
 		OzonlaagPatcherSettings m_Settings;
+		std::string m_sOzonlaagVersion = "htb_ozonlaag 0.0.1b";
 	};
 }

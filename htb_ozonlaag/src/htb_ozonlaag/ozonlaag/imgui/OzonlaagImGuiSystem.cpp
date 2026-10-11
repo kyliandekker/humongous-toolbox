@@ -31,6 +31,9 @@ namespace htb::imgui
 
 		m_pPatchingWindow = std::make_unique<PatchingWindow>();
 		m_pPatchingWindow->Initialize();
+
+		m_pPatchingWindow->Close();
+		m_pFinishedWindow->Close();
 	}
 
 	//======================================================================================

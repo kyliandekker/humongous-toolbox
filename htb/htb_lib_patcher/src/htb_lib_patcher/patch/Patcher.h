@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <thread>
 
 #include <htb_lib/core/Event.h>
 #include <htb_lib/core/Observable.h>
@@ -30,15 +31,25 @@ namespace htb::patch
 		Patcher(const std::string& a_sName);
 
 		/// <summary>
+		/// Initializes the patcher.
+		/// </summary>
+		void Initialize();
+
+		/// <summary>
 		/// Starts the patch process on a background thread.
 		/// </summary>
-		virtual void ApplyPatch() = 0;
+		void ApplyPatch();
+
+		/// <summary>
+		/// Ends the patch thread.
+		/// </summary>
+		void Join();
 
 		/// <summary>
 		/// Gets the version string of the patcher.
 		/// </summary>
 		/// <returns>A const reference to the version string.</returns>
-		const std::string& GetVersion() const;
+		virtual const std::string& GetVersion() const;
 
 		/// <summary>
 		/// Retrieves the working path.
@@ -62,13 +73,25 @@ namespace htb::patch
 		/// Returns an observable status message.
 		/// </summary>
 		/// <returns>Observable status message that can be listened to, or read.</returns>
-		const core::Observable<std::string>& GetStatusMessage() const;
+		const std::string& GetStatusMessage() const;
+	private:
+		/// <summary>
+		/// Initializes patcher-specific functionality.
+		/// </summary>
+		virtual void OnInitialized() = 0;
+
+		/// <summary>
+		/// Starts the patch.
+		/// </summary>
+		virtual void OnPatchApplied() = 0;
 	protected:
 		std::string m_sName = "Unknown Patch";
 		std::string m_sVersion = "htb_patcher v0.0.1b";
 		fs::path m_WorkingPath;
 
 		core::Observable<EPatcherState> m_ePatcherState;
-		core::Observable<std::string> m_sStatusMessage;
+		std::string m_sStatusMessage;
+
+		std::thread m_PatchThread;
 	};
 }

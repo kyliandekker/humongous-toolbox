@@ -3,6 +3,7 @@
 namespace htb::ozonlaag
 {
 	constexpr auto MAIN_WINDOW_SELECT = "Selecteer de mappen waarin de bestanden van Spy Fox 1, 2 en 3 zijn. Dit is nodig om de patches correct toe te passen.";
+	constexpr auto MAIN_WINDOW_WARNING = "Zorg ervoor dat Spy Fox 1 en 2 de Nederlandse installaties zijn.";
 	constexpr auto MAIN_WINDOW_BROWSE = " Bladeren...";
 	constexpr auto MAIN_WINDOW_MISSING_FOLDERS_MESSAGE = "Vul alle drie de installatiemappen in voordat je doorgaat.";
 	constexpr auto MAIN_WINDOW_PATCH_BUTTON_TEXT = " Patch";
@@ -15,8 +16,9 @@ namespace htb::ozonlaag
 	constexpr auto MAIN_WINDOW_INSTALL_PATH_SPYFOX_3 = "Spy Fox 3 installatiemap: ";
 	constexpr auto MAIN_WINDOW_POPUP_MISSING_FOLDERS = "Patchen mislukt";
 	constexpr auto MAIN_WINDOW_POPUP_FAILED = "Patchen mislukt";
+	constexpr auto MAIN_WINDOW_FIND_INSTALLATION = "Vind installaties";
 
-	constexpr auto PATCHING_WINDOW_WAITING_TEXT = "De benodigde patches worden nu toegepast op de installatie van SpyFox 3. Dit kan even duren.";
+	constexpr auto PATCHING_WINDOW_WAITING_TEXT = "De benodigde patches worden nu toegepast op de installatie van Spy Fox 3. Dit kan even duren.";
 
 	constexpr auto FINISHED_WINDOW_TEXT = "Klaar is Kees! Jouw Spy Fox 3 is nu in het Nederlands.";
 	constexpr auto FINISHED_WINDOW_FOOTER = "Veel speelplezier!";

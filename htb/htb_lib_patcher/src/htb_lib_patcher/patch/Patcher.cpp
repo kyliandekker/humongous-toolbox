@@ -1,6 +1,7 @@
 #include "./Patcher.h"
 
 #include <htb_lib/file/File.h>
+#include <htb_lib_patcher/patch/PatcherState.h>
 
 namespace htb::patch
 {
@@ -14,6 +15,42 @@ namespace htb::patch
 	const std::string& Patcher::GetVersion() const
 	{
 		return m_sVersion;
+	}
+
+	//======================================================================================
+	void Patcher::Initialize()
+	{
+		m_ePatcherState = EPatcherState::INACTIVE;
+
+		OnInitialized();
+	}
+
+	//======================================================================================
+	void Patcher::ApplyPatch()
+	{
+		m_ePatcherState = EPatcherState::RUNNING;
+
+		m_PatchThread = std::thread([this]()
+		{
+			try
+			{
+				OnPatchApplied();
+			}
+			catch (const std::exception& e)
+			{
+				m_sStatusMessage = e.what();
+				m_ePatcherState = EPatcherState::FAILED;
+			}
+		});
+	}
+
+	//======================================================================================
+	void Patcher::Join()
+	{
+		if (m_PatchThread.joinable())
+		{
+			m_PatchThread.join();
+		}
 	}
 
 	//======================================================================================
@@ -36,7 +73,7 @@ namespace htb::patch
 	}
 
 	//======================================================================================
-	const core::Observable<std::string>& Patcher::GetStatusMessage() const
+	const std::string& Patcher::GetStatusMessage() const
 	{
 		return m_sStatusMessage;
 	}

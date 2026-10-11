@@ -233,6 +233,9 @@ namespace htb::imgui
 		extraColors[imgui::ImGuiExtraCol_CancelButton] = C(168, 58, 58, 255);
 		extraColors[imgui::ImGuiExtraCol_CancelButtonHovered] = C(211, 74, 74, 255);
 		extraColors[imgui::ImGuiExtraCol_CancelButtonActive] = C(130, 24, 24, 255);
+		extraColors[imgui::ImGuiExtraCol_BrowseButton] = C(83, 51, 115, 255);
+		extraColors[imgui::ImGuiExtraCol_BrowseButtonHovered] = C(123, 99, 159, 255);
+		extraColors[imgui::ImGuiExtraCol_BrowseButtonActive] = C(175, 143, 183, 255);
 		extraColors[imgui::ImGuiExtraCol_TabInactive] = C(24, 20, 40, 255);
 
 		ImPlotStyle& implotStyle = ImPlot::GetStyle();

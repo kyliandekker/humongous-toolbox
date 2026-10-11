@@ -1,5 +1,9 @@
 #include "./OzonlaagPatcher.h"
 
+#include <chrono>
+
+#include <htb_lib_patcher/patch/PatcherState.h>
+
 namespace htb::ozonlaag
 {
 	constexpr auto OZONLAAG_SETTINGS_NAME = "settings.conf";
@@ -18,14 +22,23 @@ namespace htb::ozonlaag
 	{}
 
 	//======================================================================================
-	void OzonlaagPatcher::Initialize()
+    const std::string& OzonlaagPatcher::GetVersion() const
+    {
+		return m_sOzonlaagVersion;
+    }
+
+	//======================================================================================
+	void OzonlaagPatcher::OnInitialized()
 	{
 		LoadSettings();
 	}
 
 	//======================================================================================
-	void OzonlaagPatcher::ApplyPatch()
+	void OzonlaagPatcher::OnPatchApplied()
 	{
+		std::this_thread::sleep_for(std::chrono::seconds(4));
+
+		throw std::runtime_error("Could not find SDAT in TALK of Spy Fox 3.");
 	}
 
 	//======================================================================================

@@ -25,6 +25,9 @@ namespace htb::imgui
 		ImGuiExtraCol_CancelButton,
 		ImGuiExtraCol_CancelButtonHovered,
 		ImGuiExtraCol_CancelButtonActive,
+		ImGuiExtraCol_BrowseButton,
+		ImGuiExtraCol_BrowseButtonHovered,
+		ImGuiExtraCol_BrowseButtonActive,
 		ImGuiExtraCol_TabInactive,
 		ImGuiExtraCol_COUNT
 	};
