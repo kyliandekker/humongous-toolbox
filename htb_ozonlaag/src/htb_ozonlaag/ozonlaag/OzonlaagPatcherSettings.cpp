@@ -1,6 +1,6 @@
 #include "./OzonlaagPatcherSettings.h"
 
-namespace htb::patch
+namespace htb::ozonlaag
 {
 	//======================================================================================
 	// OzonlaagPatcherSettings

@@ -8,14 +8,6 @@
 
 #include <htb_lib/file/FILEPCH.h>
 
-namespace ImGui
-{
-	class BaseWindow;
-}
-namespace htb::patch
-{
-	enum class PatchState;
-}
 namespace htb::dx11
 {
 	class DX11System;
@@ -57,11 +49,6 @@ namespace htb::imgui
 		bool Initialize();
 
 		/// <summary>
-		/// Initializes the windows.
-		/// </summary>
-		bool InitializeWindows();
-
-		/// <summary>
 		/// Destroys all imgui assets.
 		/// </summary>
 		bool Destroy();
@@ -78,6 +65,16 @@ namespace htb::imgui
 		/// </summary>
 		void Render();
 	private:
+		/// <summary>
+		/// Called when the window is successfully initialized. Meant to initialize windows, modals, etc.
+		/// </summary>
+		virtual void OnInitialized() = 0;
+
+		/// <summary>
+		/// Renders the windows.
+		/// </summary>
+		virtual void OnRender() = 0;
+
 		/// <summary>
 		/// Handles Windows messages for the editor's window.
 		/// </summary>
@@ -106,11 +103,6 @@ namespace htb::imgui
 		void CreateImGui();
 	public:
 		/// <summary>
-		/// Callback for when the patcher state has changed.
-		/// </summary>
-		void OnPatchStateChanged(patch::PatchState a_ePatchState);
-
-		/// <summary>
 		/// Updates the mouse cursor when hovering, clicking, etc.
 		/// </summary>
 		void UpdateMouseCursor();
@@ -132,7 +124,7 @@ namespace htb::imgui
 		/// </summary>
 		/// <param name="a_sPath">The directory path where the INI file will be stored.</param>
 		void SetIniPath(const fs::path& a_sPath);
-	private:
+	protected:
 		ImFont* m_pDefaultFont = nullptr;
 		ImFont* m_pBoldFont = nullptr;
 		ImFont* m_pIconFont = nullptr;

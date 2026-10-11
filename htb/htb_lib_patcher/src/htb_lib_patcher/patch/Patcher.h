@@ -13,6 +13,9 @@ namespace htb::patch
 	class Patcher;
 	extern Patcher& GetPatcher();
 
+	//======================================================================================
+	// Patcher
+	//======================================================================================
 	/// <summary>
 	/// Contains the current state of the patch.
 	/// Reports errors.

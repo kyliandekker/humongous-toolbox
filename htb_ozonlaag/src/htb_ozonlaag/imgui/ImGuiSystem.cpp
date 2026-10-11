@@ -10,8 +10,8 @@
 #include <htb_lib_win32/dx11/DX11System.h>
 #include <htb_lib_win32/win32/Win32Window.h>
 
-#include "htb_patcher/imgui/Theme.h"
-#include "htb_patcher/imgui/font_icon_patch.h"
+#include "htb_ozonlaag/imgui/Theme.h"
+#include "htb_ozonlaag/imgui/font_icon_patch.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -19,13 +19,6 @@ namespace htb::imgui
 {
 	//---------------------------------------------------------------------
 	// ImGuiSystem
-	//---------------------------------------------------------------------
-	ImGuiSystem& GetImGuiSystem()
-	{
-		static ImGuiSystem system;
-		return system;
-	}
-
 	//---------------------------------------------------------------------
 	ImGuiSystem::ImGuiSystem()
 	{}
@@ -52,14 +45,8 @@ namespace htb::imgui
 		GetClientRect(window.GetHandle(), &rc);
 		Resize(rc.right - rc.left, rc.bottom - rc.top);
 
-		InitializeWindows();
+		OnInitialized();
 
-		return true;
-	}
-
-	//---------------------------------------------------------------------
-	bool ImGuiSystem::InitializeWindows()
-	{
 		return true;
 	}
 
@@ -156,6 +143,8 @@ namespace htb::imgui
 		ImGui::NewFrame();
 
 		const ImGuiIO& io = ImGui::GetIO();
+
+		OnRender();
 
 		ImGui::EndFrame();
 		ImGui::Render();

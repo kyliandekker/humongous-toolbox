@@ -1,6 +1,6 @@
 #pragma once
 
-namespace htb
+namespace htb::ozonlaag
 {
 	constexpr auto MAIN_WINDOW_SELECT = "Selecteer de mappen waarin de bestanden van Spy Fox 1, 2 en 3 zijn. Dit is nodig om de patches correct toe te passen.";
 	constexpr auto MAIN_WINDOW_BROWSE = " Bladeren...";

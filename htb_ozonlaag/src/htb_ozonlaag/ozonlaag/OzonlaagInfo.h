@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <array>
 
-namespace htb::patch
+namespace htb::ozonlaag
 {
 	// TALKIES
 	constexpr uint8_t PATCHER_BG_MOBCOM = 4;

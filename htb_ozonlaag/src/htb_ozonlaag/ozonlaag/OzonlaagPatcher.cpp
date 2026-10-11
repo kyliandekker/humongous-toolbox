@@ -1,11 +1,18 @@
 #include "./OzonlaagPatcher.h"
 
-namespace htb::patch
+namespace htb::ozonlaag
 {
+	//======================================================================================
+	OzonlaagPatcher* GetOzonlaagPatcher()
+	{
+		patch::Patcher& patcher = patch::GetPatcher();
+		return dynamic_cast<OzonlaagPatcher*>(&patcher);
+	}
+
 	//======================================================================================
 	// OzonlaagPatcher
 	//======================================================================================
-	OzonlaagPatcher::OzonlaagPatcher() : Patcher("OperatieOzonlaag")
+	OzonlaagPatcher::OzonlaagPatcher() : patch::Patcher("OperatieOzonlaag")
 	{}
 
 	//======================================================================================

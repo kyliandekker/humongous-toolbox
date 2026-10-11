@@ -13,18 +13,30 @@
 
 #include "htb_ozonlaag/imgui/ImGuiSystem.h"
 #include "htb_ozonlaag/ozonlaag/OzonlaagPatcher.h"
+#include "htb_ozonlaag/ozonlaag/imgui/OzonlaagImGuiSystem.h"
 
+//======================================================================================
 namespace htb::patch
 {
 	Patcher& GetPatcher()
 	{
-		static OzonlaagPatcher patcher;
+		static ozonlaag::OzonlaagPatcher patcher;
 		return patcher;
 	}
 }
+namespace htb::imgui
+{
+	ImGuiSystem& GetImGuiSystem()
+	{
+		static OzonlaagImGuiSystem system;
+		return system;
+	}
+}
 
+//======================================================================================
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+//======================================================================================
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
 	htb::core::InitializeLog();

@@ -2,7 +2,7 @@
 
 #include <htb_lib/file/FILEPCH.h>
 
-namespace htb::patch
+namespace htb::ozonlaag
 {
 	/// <summary>
 	/// Holds all the settings for the Ozone patch.
