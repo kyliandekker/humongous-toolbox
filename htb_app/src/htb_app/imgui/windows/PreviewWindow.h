@@ -25,12 +25,12 @@ namespace htb::imgui
 		/// Constructs a preview window.
 		/// </summary>
 		PreviewWindow();
-
+	private:
 		/// <summary>
 		/// Renders the preview window content.
 		/// </summary>
-		void Update() override;
-	private:
+		void OnUpdate() override;
+
 		/// <summary>
 		/// Initializes all behaviours and values for the window.
 		/// </summary>

@@ -4,6 +4,7 @@
 
 #include <htb_lib/archive/ArchiveSet.h>
 #include <htb_lib/building/HE0Builder.h>
+#include <htb_lib/building/resources/SFX.h>
 #include <htb_lib/building/resources/Song.h>
 #include <htb_lib/building/resources/Talkie.h>
 #include <htb_lib/building/ScriptBuilder.h>
@@ -55,9 +56,9 @@ namespace htb::ozonlaag
 		m_pSong.reset();
 
 		LoadSong();
-		m_fPatcherProgress = 0.05f;
+		m_fPatcherProgress = 0.025f;
 		LoadEndSound();
-		m_fPatcherProgress = 0.1f;
+		m_fPatcherProgress = 0.05f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_LOAD_SPY_FOX_3;
 
@@ -103,11 +104,11 @@ namespace htb::ozonlaag
 			throw std::runtime_error(PATCHER_ERROR_FIND_A_SPY_FOX_3);
 		}
 
-		m_fPatcherProgress = 0.2f;
+		m_fPatcherProgress = 0.57f;
 
 		LoadWaitingImages(*sf3A);
 
-		m_fPatcherProgress = 0.25f;
+		m_fPatcherProgress = 0.1f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_BINDING_SCRIPTS;
 
@@ -117,7 +118,7 @@ namespace htb::ozonlaag
 			throw std::runtime_error(PATCHER_ERROR_BIND_SCRIPTS_SPY_FOX_3);
 		}
 
-		m_fPatcherProgress = 0.30f;
+		m_fPatcherProgress = 0.2f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_BINDING_INDEX;
 
@@ -127,7 +128,7 @@ namespace htb::ozonlaag
 			throw std::runtime_error(PATCHER_ERROR_BIND_HE0_SPY_FOX_3);
 		}
 
-		m_fPatcherProgress = 0.35f;
+		m_fPatcherProgress = 0.3f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_SEARCHING_TALKIES_SPY_FOX_3;
 
@@ -137,7 +138,7 @@ namespace htb::ozonlaag
 			sf3Talkies.emplace_back(*chunk);
 		});
 
-		m_fPatcherProgress = 0.4f;
+		m_fPatcherProgress = 0.35f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_2_TALKIES;
 
@@ -157,7 +158,7 @@ namespace htb::ozonlaag
 			ReplaceTalkies(sf3Talkies, sf2HE2, SF2_TALKIE_INDEX, PATCHER_ERROR_FIND_TALKS_SPY_FOX_2, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_2, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_3);
 		}
 
-		m_fPatcherProgress = 0.5f;
+		m_fPatcherProgress = 0.4f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_1_TALKIES;
 
@@ -172,6 +173,10 @@ namespace htb::ozonlaag
 			ReplaceTalkies(sf3Talkies, sf1HE2, SF1_TALKIE_INDEX, PATCHER_ERROR_FIND_TALKS_SPY_FOX_1, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_1, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_3);
 		}
 
+		m_fPatcherProgress = 0.5f;
+
+		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_IMAGES_FROM_SPY_FOX_2;
+
 		m_fPatcherProgress = 0.6f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_BUILDING_SCRIPTS;
@@ -181,7 +186,7 @@ namespace htb::ozonlaag
 			throw std::runtime_error(PATCHER_ERROR_BUILD_SCRIPTS_SPY_FOX_3);
 		}
 
-		m_fPatcherProgress = 0.82f;
+		m_fPatcherProgress = 0.7f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_BUILDING_INDEX;
 
@@ -190,7 +195,7 @@ namespace htb::ozonlaag
 			throw std::runtime_error(PATCHER_ERROR_BUILD_HE0_SPY_FOX_3);
 		}
 
-		m_fPatcherProgress = 0.9f;
+		m_fPatcherProgress = 0.8f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_SAVING;
 
@@ -267,12 +272,12 @@ namespace htb::ozonlaag
 		}
 
 		std::vector<parsing::Chunk*> sfx;
-		if (!rooms[END_SOUND_LFLF_ROOM]->TryFindChildren(parsing::SDAT_CHUNK_ID, sfx))
+		if (!rooms[END_SOUND_LFLF_ROOM]->TryFindChildren(parsing::DIGI_CHUNK_ID, sfx))
 		{
 			throw std::runtime_error(PATCHER_ERROR_FIND_END_SOUND_SPY_FOX_1);
 		}
 
-		//m_EndSound = sfx[0]->GetData();
+		m_pEndSound = std::make_unique<building::SFX>(*sfx[0]);
 
 		// Artificial wait because otherwise the status message gets lost.
 		std::this_thread::sleep_for(std::chrono::milliseconds(600));

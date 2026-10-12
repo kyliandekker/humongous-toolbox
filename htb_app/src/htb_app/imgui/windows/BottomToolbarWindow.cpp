@@ -23,7 +23,7 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void BottomToolbarWindow::Update()
+	void BottomToolbarWindow::OnUpdate()
 	{
 		ImDrawList* drawlist = ImGui::GetWindowDrawList();
 		ImVec2 bottomToolbarStart = { ImGui::GetWindowPos().x, ImGui::GetWindowPos().y + ImGui::GetWindowSize().y - BOTTOM_TOOLBAR_HEIGHT };

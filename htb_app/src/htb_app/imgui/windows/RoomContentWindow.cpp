@@ -153,7 +153,7 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void RoomContentWindow::Update()
+	void RoomContentWindow::OnUpdate()
 	{
 		if (!m_sRoomName.empty())
 		{

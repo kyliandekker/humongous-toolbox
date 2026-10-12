@@ -2,6 +2,7 @@
 
 namespace htb::ozonlaag
 {
+	// WINDOW TEXT
 	constexpr auto MAIN_WINDOW_SELECT = "Selecteer de mappen waarin de bestanden van Spy Fox 1, 2 en 3 zijn. Dit is nodig om de patches correct toe te passen.";
 	constexpr auto MAIN_WINDOW_WARNING = "Zorg ervoor dat Spy Fox 1 en 2 de Nederlandse installaties zijn.";
 	constexpr auto MAIN_WINDOW_BROWSE = " Bladeren...";
@@ -24,19 +25,22 @@ namespace htb::ozonlaag
 	constexpr auto FINISHED_WINDOW_FOOTER = "Veel speelplezier!";
 	constexpr auto FINISHED_WINDOW_SUPPORT = "Support me";
 
+	// PATCHER STATUS
 	constexpr auto PATCHER_BUSY_WITH_LOAD_SPY_FOX_1_MUSIC = "Bezig met het laden van Spy Fox 1 muziek.";
 	constexpr auto PATCHER_BUSY_WITH_LOAD_SPY_FOX_1_SOUNDS = "Bezig met het laden van Spy Fox 1 sounds.";
-	constexpr auto PATCHER_BUSY_WITH_LOAD_SPY_FOX_3 = "Bezig met het laden van Spy Fox 3...";
-	constexpr auto PATCHER_BUSY_WITH_LOADING_BACKGROUND_IMAGES = "Bezig met het laden van achtergrondafbeeldingen...";
-	constexpr auto PATCHER_BUSY_WITH_BINDING_SCRIPTS = "Bezig met het koppelen van scripts...";
-	constexpr auto PATCHER_BUSY_WITH_BINDING_INDEX = "Bezig met het koppelen van de index info...";
-	constexpr auto PATCHER_BUSY_WITH_SEARCHING_TALKIES_SPY_FOX_3 = "Bezig met het zoeken van spraakdata in Spy Fox 3...";
-	constexpr auto PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_2_TALKIES = "Bezig met het vervangen van spraak uit Spy Fox 2...";
-	constexpr auto PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_1_TALKIES = "Bezig met het vervangen van spraak uit Spy Fox 1...";
-	constexpr auto PATCHER_BUSY_WITH_BUILDING_SCRIPTS = "Bezig met het bouwen van de scripts...";
-	constexpr auto PATCHER_BUSY_WITH_BUILDING_INDEX = "Bezig met het bouwen van de index...";
-	constexpr auto PATCHER_BUSY_WITH_SAVING = "Bezig met het opslaan van bestanden...";
+	constexpr auto PATCHER_BUSY_WITH_LOAD_SPY_FOX_3 = "Bezig met het laden van Spy Fox 3.";
+	constexpr auto PATCHER_BUSY_WITH_LOADING_BACKGROUND_IMAGES = "Bezig met het laden van achtergrondafbeeldingen.";
+	constexpr auto PATCHER_BUSY_WITH_BINDING_SCRIPTS = "Bezig met het koppelen van scripts.";
+	constexpr auto PATCHER_BUSY_WITH_BINDING_INDEX = "Bezig met het koppelen van de index info.";
+	constexpr auto PATCHER_BUSY_WITH_SEARCHING_TALKIES_SPY_FOX_3 = "Bezig met het zoeken van spraakdata in Spy Fox 3.";
+	constexpr auto PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_2_TALKIES = "Bezig met spraakdata van Spy Fox 3 vervangen met die van Spy Fox 2.";
+	constexpr auto PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_1_TALKIES = "Bezig met spraakdata van Spy Fox 1 vervangen met die van Spy Fox 2.";
+	constexpr auto PATCHER_BUSY_WITH_BUILDING_SCRIPTS = "Bezig met het bouwen van de scripts.";
+	constexpr auto PATCHER_BUSY_WITH_BUILDING_INDEX = "Bezig met het bouwen van de index.";
+	constexpr auto PATCHER_BUSY_WITH_REPLACING_IMAGES_FROM_SPY_FOX_2 = "Bezig met plaatjes van Spy Fox 3 vervangen met die van Spy Fox 2.";
+	constexpr auto PATCHER_BUSY_WITH_SAVING = "Bezig met het opslaan van bestanden.";
 
+	// PATCHER ERRORS
 	constexpr auto PATCHER_ERROR_LOAD_SPY_FOX_1_HE4 = "Het laden van HE4 van Spy Fox 1 is mislukt.";
 	constexpr auto PATCHER_ERROR_FIND_SONGS_SPY_FOX_1 = "Er zijn geen songs gevonden in HE4 van Spy Fox 1.";
 	constexpr auto PATCHER_ERROR_FIND_SF_SONG_SPY_FOX_1 = "Het Spy Fox-nummer is niet gevonden in Spy Fox 1.";

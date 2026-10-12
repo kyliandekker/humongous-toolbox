@@ -52,5 +52,9 @@ namespace htb::imgui
 		float m_fProgress = 0;
 
 		std::string m_sStatusMessage;
+		std::string m_sStatusMessageInWindow;
+
+		float m_fTextTimer = 0.0f;
+		float m_fTextTimerInterval = 0.5f;
 	};
 }

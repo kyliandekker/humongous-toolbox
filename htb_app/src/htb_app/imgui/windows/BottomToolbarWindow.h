@@ -19,7 +19,7 @@ namespace htb::imgui
 	public:
 		BottomToolbarWindow();
 	private:
-		void Update() override;
+		void OnUpdate() override;
 
 		// Inherited via HEBaseWindow
 		bool OnInitialized() override;

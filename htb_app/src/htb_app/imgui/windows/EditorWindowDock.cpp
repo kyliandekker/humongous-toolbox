@@ -28,8 +28,8 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void EditorWindowDock::Update()
+	void EditorWindowDock::OnUpdate()
 	{
-		MainWindowDock::Update();
+		MainWindowDock::OnUpdate();
 	}
 }

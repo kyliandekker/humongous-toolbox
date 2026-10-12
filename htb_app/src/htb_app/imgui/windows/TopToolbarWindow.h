@@ -14,7 +14,7 @@ namespace htb::imgui
 	public:
 		TopToolbarWindow();
 	private:
-		void Update() override;
+		void OnUpdate() override;
 
 		bool OnInitialized() override;
 	};

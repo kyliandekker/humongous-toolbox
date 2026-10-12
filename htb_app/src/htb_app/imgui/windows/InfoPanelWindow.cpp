@@ -25,7 +25,7 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void InfoPanelWindow::Update()
+	void InfoPanelWindow::OnUpdate()
 	{
 		ImVec2 avail = ImGui::GetContentRegionAvail();
 		float spacing = ImGui::GetStyle().ItemSpacing.y;

@@ -9,7 +9,7 @@ namespace htb::imgui
 	public:
 		void Render() override;
 	private:
-		void Update() override;
+		void OnUpdate() override;
 		bool OnInitialized() override;
 	};
 }

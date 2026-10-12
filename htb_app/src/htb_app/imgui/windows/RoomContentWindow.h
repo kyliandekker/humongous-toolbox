@@ -22,12 +22,12 @@ namespace htb::imgui
 		/// Constructs a room content window.
 		/// </summary>
 		RoomContentWindow();
-
+	private:
 		/// <summary>
 		/// Renders the room content window.
 		/// </summary>
-		void Update() override;
-	private:
+		void OnUpdate() override;
+
 		/// <summary>
 		/// Initializes all behaviours and values for the window.
 		/// </summary>

@@ -17,12 +17,12 @@ namespace htb::imgui
 		/// Constructs an explorer window.
 		/// </summary>
 		InfoPanelWindow();
-
+	private:
 		/// <summary>
 		/// Renders the explorer window.
 		/// </summary>
-		void Update() override;
-	private:
+		void OnUpdate() override;
+
 		/// <summary>
 		/// Initializes all behaviours and values for the window.
 		/// </summary>

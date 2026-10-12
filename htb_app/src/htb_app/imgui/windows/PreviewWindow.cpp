@@ -1140,7 +1140,7 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void PreviewWindow::Update()
+	void PreviewWindow::OnUpdate()
 	{
 		if (ImGui::BeginChild(
 			FormatId("", CHILD_ID, "PREVIEW").c_str(),

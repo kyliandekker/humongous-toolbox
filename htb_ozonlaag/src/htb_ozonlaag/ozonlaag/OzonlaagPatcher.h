@@ -13,6 +13,7 @@ namespace htb::archive
 }
 namespace htb::building
 {
+	class SFX;
 	class Song;
 	class Talkie;
 }
@@ -107,6 +108,7 @@ namespace htb::ozonlaag
 		OzonlaagPatcherSettings m_Settings;
 		std::string m_sOzonlaagVersion = "htb_ozonlaag 0.0.1b";
 
+		std::unique_ptr<building::SFX> m_pEndSound;
 		std::unique_ptr<building::Song> m_pSong;
 	};
 }

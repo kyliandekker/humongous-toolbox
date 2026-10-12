@@ -19,7 +19,7 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void TopToolbarWindow::Update()
+	void TopToolbarWindow::OnUpdate()
 	{
 		ImDrawList* drawlist = ImGui::GetWindowDrawList();
 		ImVec2 topToolbarStart = ImGui::GetWindowPos();

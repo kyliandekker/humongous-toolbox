@@ -230,7 +230,7 @@ namespace htb::imgui
 	}
 
 	//---------------------------------------------------------------------
-	void ArchiveContentsWindow::Update()
+	void ArchiveContentsWindow::OnUpdate()
 	{
 		RenderDropZone();
 		ImGui::Spacing();
