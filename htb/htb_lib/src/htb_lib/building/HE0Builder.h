@@ -38,15 +38,54 @@ namespace htb::building
 		/// </summary>
 		bool Build() override;
 	protected:
+		/// <summary>
+		/// Parses the DLFL chunk.
+		/// </summary>
+		/// <param name="a_pChunk">The DLFL chunk.</param>
+		/// <param name="a_aOut">Offsets of all LFLFs.</param>
+		/// <returns>True if parsing was successful, false otherwise.</returns>
 		bool ParseDLFL(parsing::Chunk* a_pChunk, std::vector<uint32_t>& a_aOut);
 
+		/// <summary>
+		/// Reads a DIR chunk.
+		/// </summary>
+		/// <param name="a_pChunk">Any DIR chunk.</param>
+		/// <param name="a_sChunkID">The DIR chunk ID.</param>
+		/// <param name="a_iNumEntries">The number of entries that were found.</param>
+		/// <param name="a_aIds">The ids that were found.</param>
+		/// <param name="a_aOffsets">The offsets that were found.</param>
+		/// <param name="a_aSizes">The sizes that were found.</param>
+		/// <returns>True if parsing was successful, false otherwise.</returns>
 		bool ReadDIRChunk(parsing::Chunk* a_pChunk, const std::string_view& a_sChunkID, uint16_t& a_iNumEntries, std::vector<uint8_t>& a_aIds, std::vector<uint32_t>& a_aOffsets, std::vector<uint32_t>& a_aSizes);
 
-		bool BuildIdToChunk(parsing::Chunk* a_pDirChunk, archive::Archive& a_OriginalArchive, std::vector<uint32_t> const& a_aOriginalDLFLData, std::string_view a_sDirTag, IdToChunk& a_aOut);
+		/// <summary>
+		/// Binds chunks to the DIR chunk.
+		/// </summary>
+		/// <param name="a_pDirChunk">The DIR chunk to check.</param>
+		/// <param name="a_OriginalArchive">The archive with the chunks.</param>
+		/// <param name="a_aOriginalDLFLData">The DLFL data for each LFLF.</param>
+		/// <param name="a_sDirTag">The chunk ID of the DIR.</param>
+		/// <param name="a_aOut">Map with mapped chunk ids.</param>
+		/// <returns>True if parsing was successful, false otherwise.</returns>
+		bool BuildIdToChunk(parsing::Chunk* a_pDirChunk, archive::Archive& a_OriginalArchive, const std::vector<uint32_t>& a_aOriginalDLFLData, std::string_view a_sDirTag, IdToChunk& a_aOut);
 
+		/// <summary>
+		/// Rebuilds the DLFL chunk.
+		/// </summary>
+		/// <param name="a_pChunk">The DLFL chunk to rebuild.</param>
+		/// <param name="a_Archive">The archive with the LFLF chunks.</param>
+		/// <returns>True if building was successful, false otherwise.</returns>
 		bool RebuildDLFL(parsing::Chunk* a_pChunk, archive::Archive& a_Archive);
 
-		bool RebuildDIRChunk(parsing::Chunk* a_pChunk, std::vector<parsing::Chunk*> const& a_aIdToChunk, std::vector<uint32_t> const& a_aNewDLFLData, std::string_view a_sChunkID);
+		/// <summary>
+		/// Rebuilds a DIR chunk.
+		/// </summary>
+		/// <param name="a_pChunk">The DIR chunk to rebuild.</param>
+		/// <param name="a_aIdToChunk">The map with the chunks.</param>
+		/// <param name="a_aNewDLFLData">The new LFLF data.</param>
+		/// <param name="a_sChunkID">The DIR chunk ID.</param>
+		/// <returns>True if building was successful, false otherwise.</returns>
+		bool RebuildDIRChunk(parsing::Chunk* a_pChunk, const IdToChunk& a_aIdToChunk, const std::vector<uint32_t>& a_aNewDLFLData, std::string_view a_sChunkID);
 
 		archive::Archive* m_pHE0 = nullptr;
 		archive::Archive* m_pA = nullptr;

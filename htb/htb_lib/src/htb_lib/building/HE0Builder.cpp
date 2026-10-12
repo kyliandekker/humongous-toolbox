@@ -307,7 +307,7 @@ namespace htb::building
 	bool HE0Builder::BuildIdToChunk(
 		parsing::Chunk* a_pDirChunk,
 		archive::Archive& a_OriginalArchive,
-		std::vector<uint32_t> const& a_aOriginalDLFLData,
+		const std::vector<uint32_t>& a_aOriginalDLFLData,
 		std::string_view a_sDirTag, IdToChunk& a_aOut)
 	{
 		uint16_t numEntries = 0;
@@ -555,8 +555,8 @@ namespace htb::building
 	//======================================================================================
 	bool HE0Builder::RebuildDIRChunk(
 		parsing::Chunk* a_pChunk,
-		std::vector<parsing::Chunk*> const& a_aIdToChunk,
-		std::vector<uint32_t> const& a_aNewDLFLData,
+		const IdToChunk& a_aIdToChunk,
+		const std::vector<uint32_t>& a_aNewDLFLData,
 		std::string_view a_sChunkID
 	)
 	{
