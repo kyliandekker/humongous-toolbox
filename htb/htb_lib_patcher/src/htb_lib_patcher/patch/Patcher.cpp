@@ -73,7 +73,13 @@ namespace htb::patch
 	}
 
 	//======================================================================================
-	const std::string& Patcher::GetStatusMessage() const
+	const core::Observable<float>& Patcher::GetPatcherProgress() const
+	{
+		return m_fPatcherProgress;
+	}
+
+	//======================================================================================
+	const core::Observable<std::string>& Patcher::GetStatusMessage() const
 	{
 		return m_sStatusMessage;
 	}

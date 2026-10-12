@@ -70,10 +70,16 @@ namespace htb::patch
 		const core::Observable<EPatcherState>& GetPatcherState() const;
 
 		/// <summary>
+		/// Returns observable patcher progress.
+		/// </summary>
+		/// <returns>Observable patcher progress that can be listened to, or read.</returns>
+		const core::Observable<float>& GetPatcherProgress() const;
+
+		/// <summary>
 		/// Returns an observable status message.
 		/// </summary>
 		/// <returns>Observable status message that can be listened to, or read.</returns>
-		const std::string& GetStatusMessage() const;
+		const core::Observable<std::string>& GetStatusMessage() const;
 	private:
 		/// <summary>
 		/// Initializes patcher-specific functionality.
@@ -90,7 +96,8 @@ namespace htb::patch
 		fs::path m_WorkingPath;
 
 		core::Observable<EPatcherState> m_ePatcherState;
-		std::string m_sStatusMessage;
+		core::Observable<float> m_fPatcherProgress;
+		core::Observable<std::string> m_sStatusMessage;
 
 		std::thread m_PatchThread;
 	};

@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include <cstdint>
 #include <array>
+#include <cstdint>
+#include <vector>
 
 namespace htb::ozonlaag
 {
@@ -138,8 +139,10 @@ namespace htb::ozonlaag
 
 	constexpr uint32_t SF3_TALKIE_I_NEED_TO_ENTER_THE_CODE_CORRECTLY_TO_OPEN_THAT_DOOR_A =												4022;
 
+	using TALKIE_MAP = std::vector<std::pair<uint32_t, uint32_t>>;
+
 	// PAIR IS: SF2 INDEX, SF3 INDEX.
-	const std::vector<std::pair<uint32_t, uint32_t>> SF2_TALKIE_INDEX = {
+	const TALKIE_MAP SF2_TALKIE_INDEX = {
 		/* CHECKED ✓ */ { 85,			SF3_TALKIE_INTERESTING_BUT_I_DONT_THINK_THAT_WILL_DO_ME_ANY_GOOD },
 		/* CHECKED ✓ */ { 3,			SF3_TALKIE_THATS_NOT_GOING_TO_DO_ME_ANY_GOOD },
 		/* CHECKED ✓ */ { 1,			SF3_TALKIE_I_CANT_USE_THAT_THERE },
@@ -208,7 +211,7 @@ namespace htb::ozonlaag
 	};
 
 	// PAIR IS: SF1 INDEX, SF3 INDEX.
-	const std::vector<std::pair<uint32_t, uint32_t>> SF1_TALKIE_INDEX = {
+	const TALKIE_MAP SF1_TALKIE_INDEX = {
 		/* CHECKED ✓ */ { 3245,			SF3_TALKIE_THATS_NOT_THE_BEST_USE_OF_MY_SPY_GADGET },
 		/* CHECKED ✓ */ { 2826,			SF3_TALKIE_GOOD_LUCK_SPY_FOX },
 		/* CHECKED ✓ */ { 3915,			SF3_TALKIE_HI_SPY_FOX },

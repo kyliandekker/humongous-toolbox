@@ -9,7 +9,7 @@
 
 #include "htb_ozonlaag/imgui/font_icon_patch.h"
 #include "htb_ozonlaag/imgui/ImGuiSystem.h"
-#include <htb_ozonlaag/ozonlaag/LocText.h>
+#include "htb_ozonlaag/ozonlaag/LocText.h"
 #include "htb_ozonlaag/ozonlaag/OzonlaagPatcher.h"
 
 using namespace htb::ozonlaag;
@@ -67,13 +67,13 @@ namespace htb::imgui
 		bool needsSaving = false;
 
 		if (ImGui::BeginChild(
-			FormatId("", CHILD_ID, "PREVIEW").c_str(),
+			FormatId("", CHILD_ID, "MAIN").c_str(),
 			ImVec2(
 			ImGui::GetContentRegionAvail().x,
 			ImGui::GetContentRegionAvail().y
 			),
 			ImGuiChildFlags_Borders
-			))
+		))
 		{
 			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(10, 8));
 			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 10));

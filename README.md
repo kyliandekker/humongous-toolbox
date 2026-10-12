@@ -7,8 +7,8 @@ A file archive viewer for Humongous Entertainment game data files. Supports pars
 | Module | Type | Description |
 |---|---|---|
 | `htb_lib` | Static library | Core parsing library for file I/O, data streams, chunk tree parsing, wave loading (cross-platform) |
+| `htb_lib_patcher` | Static library | Patcher classes, can be reused to make patches for games (cross-platform) |
 | `htb_lib_win32` | Static library | Win32 specifics like window, DX11 |
-| `htb_lib_patcher` | Static library | Patcher classes, can be reused to make patches for games |
 | `htb_ozonlaag` | Win32 executable | GUI application that is used for patching SpyFox 3 to Dutch |
 | `htb_app` | Win32 executable | GUI application that is used for visual preview of archives, not meant for replacing |
 | `htb_cli` | Console executable | CLI tool for batch operations (cross-platform) |

@@ -1,9 +1,21 @@
 #pragma once
 
+#include <memory>
+
 #include <htb_lib_patcher/patch/Patcher.h>
 
+#include "htb_ozonlaag/ozonlaag/OzonlaagInfo.h"
 #include "htb_ozonlaag/ozonlaag/OzonlaagPatcherSettings.h"
 
+namespace htb::archive
+{
+	class Archive;
+}
+namespace htb::building
+{
+	class Song;
+	class Talkie;
+}
 namespace htb::ozonlaag
 {
 	class OzonlaagPatcher;
@@ -16,6 +28,8 @@ namespace htb::ozonlaag
 	class OzonlaagPatcher : public patch::Patcher
 	{
 	public:
+		~OzonlaagPatcher();
+
 		/// <summary>
 		/// Constructs the Ozonlaag patcher.
 		/// </summary>
@@ -59,7 +73,40 @@ namespace htb::ozonlaag
 		/// </summary>
 		void OnPatchApplied() override;
 
+		/// <summary>
+		/// Loads the patching song.
+		/// </summary>
+		void LoadSong();
+
+		/// <summary>
+		/// Loads the end sound.
+		/// </summary>
+		void LoadEndSound();
+
+		/// <summary>
+		/// Loads the images for the patcher.
+		/// </summary>
+		/// <param name="a_pArchive">The archive to fetch images from.</param>
+		void LoadWaitingImages(archive::Archive& a_pArchive);
+
+		/// <summary>
+		/// Replaces the Talkies in an archive with the ones from a source archive.
+		/// </summary>
+		/// <param name="a_aTargetTalkies">The target HE2 talkies.</param>
+		/// <param name="a_pSourceArchive">The source HE2 archive.</param>
+		/// <param name="a_mMap">The map of which TALKies to replace.</param>
+		void ReplaceTalkies(
+			std::vector<building::Talkie>& a_aTargetTalkies,
+			archive::Archive& a_pSourceArchive, // TODO: This is a design flaw in htb_lib. Source should be const.
+			const TALKIE_MAP& a_mMap,
+			const std::string a_sEmptyError,
+			const std::string a_sNotFoundErrorSource,
+			const std::string a_sNotFoundErrorTarget
+		); 
+
 		OzonlaagPatcherSettings m_Settings;
 		std::string m_sOzonlaagVersion = "htb_ozonlaag 0.0.1b";
+
+		std::unique_ptr<building::Song> m_pSong;
 	};
 }
