@@ -30,9 +30,15 @@ namespace htb::building
 	{}
 
 	//======================================================================================
-	Song::Song(parsing::Chunk& a_SGENChunk) : GameResource(),
-		m_pSGENChunk(&a_SGENChunk)
+	Song::Song(parsing::Chunk& a_SGENChunk) : GameResource()
 	{
+		if (a_SGENChunk.GetTag() != parsing::SGEN_CHUNK_ID)
+		{
+			core::Log(core::ELogLevel::_ERROR, "Could not construct song because the provided chunk was not an SGEN chunk.");
+			return;
+		}
+		m_pSGENChunk = &a_SGENChunk;
+
 		parsing::Chunk* songChunk = m_pSGENChunk->GetRoot();
 		if (!songChunk)
 		{

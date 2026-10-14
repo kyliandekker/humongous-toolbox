@@ -14,9 +14,15 @@ namespace htb::building
 	{}
 
 	//======================================================================================
-	SFX::SFX(parsing::Chunk& a_Chunk) : GameResource(),
-		m_pDIGIChunk(&a_Chunk)
+	SFX::SFX(parsing::Chunk& a_DIGIChunk) : GameResource()
 	{
+		if (a_DIGIChunk.GetTag() != parsing::DIGI_CHUNK_ID)
+		{
+			core::Log(core::ELogLevel::_ERROR, "Could not construct sfx because the provided chunk was not a DIGI chunk.");
+			return;
+		}
+		m_pDIGIChunk = &a_DIGIChunk;
+
 		m_pHSHDChunk = m_pDIGIChunk->TryFindChild(parsing::HSHD_CHUNK_ID);
 		m_pSDATChunk = m_pDIGIChunk->TryFindChild(parsing::SDAT_CHUNK_ID);
 

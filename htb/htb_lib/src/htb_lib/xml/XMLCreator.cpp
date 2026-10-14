@@ -41,7 +41,7 @@ namespace htb::xml
 			a_Element.InsertEndChild(element);
 
 			element->SetAttribute("offset", a_iOffset);
-			element->SetAttribute("dataSize", chunk->ChunkSize());
+			element->SetAttribute("dataSize", chunk->GetData().empty() ? 0 : chunk->ChunkSize());
 			element->SetAttribute("chunkSize", chunk->WholeChunkSize());
 
 			a_iOffset += parsing::CHUNK_HEADER_SIZE;

@@ -4,6 +4,8 @@
 
 #include <htb_lib/archive/ArchiveSet.h>
 #include <htb_lib/building/HE0Builder.h>
+#include <htb_lib/building/resources/RoomImage.h>
+#include <htb_lib/building/resources/RoomBackground.h>
 #include <htb_lib/building/resources/SFX.h>
 #include <htb_lib/building/resources/Song.h>
 #include <htb_lib/building/resources/Talkie.h>
@@ -91,17 +93,17 @@ namespace htb::ozonlaag
 
 		if (!sf3HE2)
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_HE2_SPY_FOX_3);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_SPY_FOX_3_HE2);
 		}
 
 		if (!sf3HE0)
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_HE0_SPY_FOX_3);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_SPY_FOX_3_HE0);
 		}
 
 		if (!sf3A)
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_A_SPY_FOX_3);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_SPY_FOX_3_A);
 		}
 
 		m_fPatcherProgress = 0.57f;
@@ -138,27 +140,12 @@ namespace htb::ozonlaag
 			sf3Talkies.emplace_back(*chunk);
 		});
 
-		m_fPatcherProgress = 0.35f;
-
-		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_2_TALKIES;
-
 		if (sf3Talkies.empty())
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_TALKS_SPY_FOX_3);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_TALKIES_SPY_FOX_3);
 		}
 
-		{
-			fs::path sf2archivepath = m_Settings.GetSpyFox2Path() / "Spyfox2.HE2";
-			archive::Archive sf2HE2;
-			if (!sf2HE2.Load(sf2archivepath))
-			{
-				throw std::runtime_error(PATCHER_ERROR_LOAD_HE2_SPY_FOX_2);
-			}
-
-			ReplaceTalkies(sf3Talkies, sf2HE2, SF2_TALKIE_INDEX, PATCHER_ERROR_FIND_TALKS_SPY_FOX_2, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_2, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_3);
-		}
-
-		m_fPatcherProgress = 0.4f;
+		m_fPatcherProgress = 0.35f;
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_1_TALKIES;
 
@@ -167,15 +154,54 @@ namespace htb::ozonlaag
 			archive::Archive sf1HE2;
 			if (!sf1HE2.Load(sf1archivepath))
 			{
-				throw std::runtime_error(PATCHER_ERROR_LOAD_HE2_SPY_FOX_1);
+				throw std::runtime_error(PATCHER_ERROR_LOAD_TALKIES_SPY_FOX_1);
 			}
 
-			ReplaceTalkies(sf3Talkies, sf1HE2, SF1_TALKIE_INDEX, PATCHER_ERROR_FIND_TALKS_SPY_FOX_1, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_1, PATCHER_ERROR_REPLACING_OUT_OF_RANGE_SPY_FOX_3);
+			ReplaceTalkies(sf3Talkies, sf1HE2, SF1_TALKIE_INDEX, PATCHER_ERROR_LOAD_TALKIES_SPY_FOX_1, PATCHER_ERROR_REPLACING_TALKIES_OUT_OF_RANGE_SPY_FOX_1, PATCHER_ERROR_REPLACING_TALKIES_OUT_OF_RANGE_SPY_FOX_3);
+		}
+
+		m_fPatcherProgress = 0.4f;
+
+		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_WITH_SPY_FOX_2_TALKIES;
+
+		{
+			fs::path sf2archivepath = m_Settings.GetSpyFox2Path() / "Spyfox2.HE2";
+			archive::Archive sf2HE2;
+			if (!sf2HE2.Load(sf2archivepath))
+			{
+				throw std::runtime_error(PATCHER_ERROR_LOAD_SPY_FOX_1_HE2);
+			}
+
+			ReplaceTalkies(sf3Talkies, sf2HE2, SF2_TALKIE_INDEX, PATCHER_ERROR_LOAD_TALKIES_SPY_FOX_1, PATCHER_ERROR_REPLACING_TALKIES_OUT_OF_RANGE_SPY_FOX_2, PATCHER_ERROR_REPLACING_TALKIES_OUT_OF_RANGE_SPY_FOX_3);
+		}
+
+		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_IMAGES_FROM_SPY_FOX_2;
+
+		fs::path sf2archivepath = m_Settings.GetSpyFox2Path() / "Spyfox2.(A)";
+		archive::Archive sf2A;
+		if (!sf2A.Load(sf2archivepath))
+		{
+			throw std::runtime_error(PATCHER_ERROR_LOAD_SPY_FOX_1_A);
+		}
+
+		std::unordered_map<parsing::Chunk*, parsing::Chunk*> imagesToSF2;
+		for (const auto& pair : SF2_ROOM_IMAGE_INDEX)
+		{
+			imagesToSF2.insert({ sf3A->GetRoot().FindChunkAt(pair.second), sf2A.GetRoot().FindChunkAt(pair.first) });
+		}
+
+		std::unordered_map<parsing::Chunk*, parsing::Chunk*> backgroundsToSF2;
+		for (const auto& pair : SF2_BACKGROUND_INDEX)
+		{
+			backgroundsToSF2.insert({ sf3A->GetRoot().FindChunkAt(pair.second), sf2A.GetRoot().FindChunkAt(pair.first) });
 		}
 
 		m_fPatcherProgress = 0.5f;
 
-		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_IMAGES_FROM_SPY_FOX_2;
+		m_sStatusMessage = PATCHER_BUSY_WITH_REPLACING_BACKGROUND_FROM_SPY_FOX_2;
+
+		ReplaceBackgrounds(backgroundsToSF2);
+		ReplaceImages(imagesToSF2);
 
 		m_fPatcherProgress = 0.6f;
 
@@ -199,14 +225,14 @@ namespace htb::ozonlaag
 
 		m_sStatusMessage = PATCHER_BUSY_WITH_SAVING;
 
-		//fs::path spyfox3Path = m_Settings.GetSpyFox3Path();
-		//for (std::unique_ptr<archive::Archive>& archive : spyfox3.GetArchives())
-		//{
-		//	core::DataStream data;
-		//	archive->Build(data);
-		//	fs::path newArchivePath = spyfox3Path.string() + "/" + archive->GetName();
-		//	file::SaveFile(newArchivePath, data);
-		//}
+		fs::path spyfox3Path = m_Settings.GetSpyFox3Path();
+		for (std::unique_ptr<archive::Archive>& archive : spyfox3.GetArchives())
+		{
+			core::DataStream data;
+			archive->Build(data);
+			fs::path newArchivePath = spyfox3Path.string() + "/" + archive->GetName();
+			file::SaveFile(newArchivePath, data);
+		}
 
 		m_fPatcherProgress = 1.f;
 
@@ -231,13 +257,13 @@ namespace htb::ozonlaag
 		std::vector<parsing::Chunk*> songs;
 		if (!he4->GetRoot().TryFindChildren(parsing::SGEN_CHUNK_ID, songs))
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_SONGS_SPY_FOX_1);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_SONGS_SPY_FOX_1);
 		}
 
 		constexpr int SPYFOX_SONG = 38;
 		if (songs.size() <= SPYFOX_SONG)
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_SF_SONG_SPY_FOX_1);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_SF_SONG_SPY_FOX_1);
 		}
 
 		m_pSong = std::make_unique<building::Song>(*songs[SPYFOX_SONG]);
@@ -262,19 +288,19 @@ namespace htb::ozonlaag
 		std::vector<parsing::Chunk*> rooms;
 		if (!a->GetRoot().TryFindChildren(parsing::LFLF_CHUNK_ID, rooms))
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_ROOMS_SPY_FOX_1);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_END_ROOMS_SPY_FOX);
 		}
 
 		constexpr int END_SOUND_LFLF_ROOM = 8;
 		if (rooms.size() <= END_SOUND_LFLF_ROOM)
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_LFLF_SPY_FOX_1);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_END_LFLF_SPY_FOX);
 		}
 
 		std::vector<parsing::Chunk*> sfx;
 		if (!rooms[END_SOUND_LFLF_ROOM]->TryFindChildren(parsing::DIGI_CHUNK_ID, sfx))
 		{
-			throw std::runtime_error(PATCHER_ERROR_FIND_END_SOUND_SPY_FOX_1);
+			throw std::runtime_error(PATCHER_ERROR_LOAD_END_SOUND_SPY_FOX);
 		}
 
 		m_pEndSound = std::make_unique<building::SFX>(*sfx[0]);
@@ -305,9 +331,9 @@ namespace htb::ozonlaag
 
 	//======================================================================================
 	void OzonlaagPatcher::ReplaceTalkies(std::vector<building::Talkie>& a_aTargetTalkies, archive::Archive& a_pSourceArchive, const TALKIE_MAP& a_mMap,
-		const std::string a_sEmptyError,
-		const std::string a_sNotFoundErrorSource,
-		const std::string a_sNotFoundErrorTarget)
+		const std::string& a_sEmptyError,
+		const std::string& a_sNotFoundErrorSource,
+		const std::string& a_sNotFoundErrorTarget)
 	{
 		std::vector<building::Talkie> sourceTalkies;
 		a_pSourceArchive.GetRoot().TryFindChildren(parsing::TALK_CHUNK_ID, [&sourceTalkies](parsing::Chunk* chunk)
@@ -327,17 +353,67 @@ namespace htb::ozonlaag
 				throw std::runtime_error(a_sNotFoundErrorSource + std::to_string(patches.first));
 			}
 			building::Talkie& srcTalkie = sourceTalkies[patches.first];
+			if (!srcTalkie.IsValid())
+			{
+				throw std::runtime_error(a_sNotFoundErrorSource + std::to_string(patches.first));
+			}
 			if (a_aTargetTalkies.size() <= patches.second)
 			{
 				throw std::runtime_error(a_sNotFoundErrorTarget + std::to_string(patches.second));
 			}
-			building::Talkie& trgTalkie = a_aTargetTalkies[patches.second];
-
-			trgTalkie.SetAudioData(srcTalkie.GetAudioData());
-			if (srcTalkie.HasSBNGData() && trgTalkie.HasSBNGData())
+			building::Talkie& targetTalkie = a_aTargetTalkies[patches.second];
+			if (!targetTalkie.IsValid())
 			{
-				trgTalkie.SetSBNGData(srcTalkie.GetSBNGData());
+				throw std::runtime_error(a_sNotFoundErrorTarget + std::to_string(patches.second));
 			}
+
+			targetTalkie.SetAudioData(srcTalkie.GetAudioData());
+			if (srcTalkie.HasSBNGData() && targetTalkie.HasSBNGData())
+			{
+				targetTalkie.SetSBNGData(srcTalkie.GetSBNGData());
+			}
+		}
+	}
+
+	//======================================================================================
+	void OzonlaagPatcher::ReplaceImages(std::unordered_map<parsing::Chunk*, parsing::Chunk*>& a_mChunks)
+	{
+		for (auto& pair : a_mChunks)
+		{
+			building::RoomImage targetImage(*pair.first);
+			if (!targetImage.IsValid())
+			{
+				throw std::runtime_error(PATCHER_ERROR_REPLACING_IMAGES_OUT_OF_RANGE_SPY_FOX_3);
+			}
+
+			building::RoomImage srcImage(*pair.second);
+			if (!srcImage.IsValid())
+			{
+				throw std::runtime_error(PATCHER_ERROR_REPLACING_IMAGES_OUT_OF_RANGE_SPY_FOX_2);
+			}
+
+			targetImage.ReplaceImage(srcImage);
+		}
+	}
+
+	//======================================================================================
+	void OzonlaagPatcher::ReplaceBackgrounds(std::unordered_map<parsing::Chunk*, parsing::Chunk*>& a_mChunks)
+	{
+		for (auto& pair : a_mChunks)
+		{
+			building::RoomBackground targetImage(*pair.first);
+			if (!targetImage.IsValid())
+			{
+				throw std::runtime_error(PATCHER_ERROR_REPLACING_BACKGROUNDS_OUT_OF_RANGE_SPY_FOX_3);
+			}
+
+			building::RoomBackground srcImage(*pair.second);
+			if (!srcImage.IsValid())
+			{
+				throw std::runtime_error(PATCHER_ERROR_REPLACING_BACKGROUNDS_OUT_OF_RANGE_SPY_FOX_2);
+			}
+
+			targetImage.ReplaceBackground(srcImage);
 		}
 	}
 

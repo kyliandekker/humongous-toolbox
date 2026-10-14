@@ -14,9 +14,15 @@ namespace htb::building
 	{}
 
 	//======================================================================================
-	Talkie::Talkie(parsing::Chunk& a_Chunk) : GameResource(),
-		m_pTALKChunk(&a_Chunk)
+	Talkie::Talkie(parsing::Chunk& a_TALKChunk) : GameResource()
 	{
+		if (a_TALKChunk.GetTag() != parsing::TALK_CHUNK_ID)
+		{
+			core::Log(core::ELogLevel::_ERROR, "Could not construct song because the provided chunk was not a TALK chunk.");
+			return;
+		}
+		m_pTALKChunk = &a_TALKChunk;
+
 		m_pHSHDChunk = m_pTALKChunk->TryFindChild(parsing::HSHD_CHUNK_ID);
 		m_pSBNGChunk = m_pTALKChunk->TryFindChild(parsing::SBNG_CHUNK_ID);
 		m_pSDATChunk = m_pTALKChunk->TryFindChild(parsing::SDAT_CHUNK_ID);

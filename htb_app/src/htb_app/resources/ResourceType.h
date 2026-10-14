@@ -11,7 +11,6 @@ namespace htb::resources
 
 		RoomBackground, // Big images.
 		RoomImage, // Room-owned image resource.
-		RoomImageLayer, // Separate layer showing the room-owned image at the position on the background.
 
 		Talkie, // Voice files.
 		SFX, // SFX.

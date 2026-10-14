@@ -229,12 +229,31 @@ namespace htb::ozonlaag
 		/* CHECKED ✓ */ { 3100,			SF3_TALKIE_ILL_TRY_IT_AGAIN_LATER },
 	};
 
-	// ROOM IMAGES
-	constexpr uint32_t SF3_ROOM_IMAGE_SAVE = 2018148;
-	constexpr uint32_t SF3_ROOM_IMAGE_LOAD = 2020457;
+	using IMAGE_MAP = std::vector<std::pair<uint32_t, uint32_t>>;
 
-	const std::vector<std::pair<uint32_t, uint32_t>> SF2_ROOM_IMAGE_INDEX = {
-		{ 87204718, SF3_ROOM_IMAGE_SAVE },
-		{ 87208516, SF3_ROOM_IMAGE_LOAD }
+	// ROOM IMAGES
+	constexpr uint32_t SF3_IMAGE_SPYWATCH_FUN =						3021170;
+	constexpr uint32_t SF3_IMAGE_SPYWATCH_LOAD =					3024630;
+	constexpr uint32_t SF3_IMAGE_SPYWATCH_SAVE =					3027612;
+	constexpr uint32_t SF3_IMAGE_SPYWATCH_QUIT =					3030297;
+	constexpr uint32_t SF3_IMAGE_SAVEGAME_LOAD_SAVE =				2018106;
+
+	const IMAGE_MAP SF2_ROOM_IMAGE_INDEX = {
+		{ 1481788, SF3_IMAGE_SPYWATCH_FUN },
+		{ 1485182, SF3_IMAGE_SPYWATCH_LOAD },
+		{ 1492872, SF3_IMAGE_SPYWATCH_SAVE },
+		{ 1490476, SF3_IMAGE_SPYWATCH_QUIT },
+		{ 87204676, SF3_IMAGE_SAVEGAME_LOAD_SAVE },
+	};
+
+	using BACKGROUND_MAP = std::vector<std::pair<uint32_t, uint32_t>>;
+
+	// ROOM BACKGROUNDS
+	constexpr uint32_t SF3_BACKGROUND_SPYWATCH = 2956887;
+	constexpr uint32_t SF3_BACKGROUND_SAVELOAD = 1968390;
+
+	const BACKGROUND_MAP SF2_BACKGROUND_INDEX = {
+		{ 1409436, SF3_BACKGROUND_SPYWATCH },
+		{ 87152736, SF3_BACKGROUND_SAVELOAD },
 	};
 }

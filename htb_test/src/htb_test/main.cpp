@@ -53,16 +53,13 @@ int main()
 		return 1;
 	}
 
-	script::OPCodeMap m_mOPCodeMap;
-	script::GetOPCodeTable(m_mOPCodeMap, set.GetScriptVersion(), set.GetHEVersion());
-
-	parsing::Chunk* scrpChunk = a->GetRoot().FindChunkAt(111272);
-	if (!scrpChunk)
+	parsing::Chunk* d = a->GetRoot().FindChunkAt(2956905);
+	if (!d)
 	{
 		core::DestroyLog();
 		return 1;
 	}
-	building::Script script(*scrpChunk, m_mOPCodeMap);
+	size_t offset = d->GetOffsetFromRoot();
 
 	core::DestroyLog();
 	return 0;

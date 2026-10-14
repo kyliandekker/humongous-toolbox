@@ -38,6 +38,25 @@ namespace htb::imgui
 
 		ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 4.0f);
 
+		if (ImGui::BeginChild("GeneralInfo", ImVec2(0, 0), ImGuiChildFlags_Borders))
+		{
+			// Header row: icon + title on left, count on right
+			float iconSize = ImGui::GetFontSize();
+			ID3D11ShaderResourceView* paletteIcon = dx11::SVGTextureCache::Get("icon_sfx.svg");
+			if (paletteIcon)
+			{
+				ImGui::Image((ImTextureID) paletteIcon, ImVec2(iconSize, iconSize));
+				ImGui::SameLine();
+			}
+			ImGui::PushFont(GetImGuiSystem().GetBoldFont());
+			ImGui::Text("GENERAL INFORMATION");
+			ImGui::PopFont();
+			ImGui::Separator();
+			ImGui::Text("Name: %s", resource->GetName().c_str());
+			ImGui::Text("Offset: %s", std::to_string(resource->Offset()).c_str());
+		}
+		ImGui::EndChild();
+
 		if (resource->GetResourceType() == resources::ResourceType::Talkie || resource->GetResourceType() == resources::ResourceType::SFX || resource->GetResourceType() == resources::ResourceType::Song)
 		{
 			resources::SoundResource* soundResource = dynamic_cast<resources::SoundResource*>(resource);
@@ -85,7 +104,7 @@ namespace htb::imgui
 			}
 			ImGui::EndChild();
 		}
-		if (resource->GetResourceType() == resources::ResourceType::RoomBackground)
+		if (resource->GetResourceType() == resources::ResourceType::RoomBackground || resource->GetResourceType() == resources::ResourceType::RoomImage)
 		{
 			resources::ImageResource* roomBackgroundResource = dynamic_cast<resources::ImageResource*>(resource);
 

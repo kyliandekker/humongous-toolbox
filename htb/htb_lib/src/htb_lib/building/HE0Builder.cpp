@@ -326,6 +326,11 @@ namespace htb::building
 
 			const uint32_t originalAbs = a_aOriginalDLFLData[ids[id]] + offs[id];
 			parsing::Chunk* ch = a_OriginalArchive.GetRoot().FindChunkAt(originalAbs);
+			if (!ch)
+			{
+				core::Log(core::ELogLevel::_ERROR, "Failed reading chunk at " + std::to_string(originalAbs) + ".");
+			}
+
 			a_aOut[id] = ch;
 		}
 

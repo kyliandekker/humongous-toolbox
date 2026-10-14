@@ -48,6 +48,8 @@ namespace htb::resources
 			m_sName = a_sName;
 		}
 
+		virtual size_t Offset();
+
 		void SetChunk(parsing::Chunk* a_pChunk);
 		parsing::Chunk* GetChunk() const { return m_pChunk; }
 
@@ -192,6 +194,10 @@ namespace htb::resources
 		RoomBackgroundResource();
 
 		void Open() override;
+
+		size_t Offset() override;
+	private:
+		parsing::Chunk* m_pRMIM = nullptr;
 	};
 
 	//---------------------------------------------------------------------
@@ -204,8 +210,12 @@ namespace htb::resources
 
 		uint16_t GetX() const;
 		uint16_t GetY() const;
+
+		size_t Offset() override;
 	private:
 		uint16_t m_iX = 0;
 		uint16_t m_iY = 0;
+
+		parsing::Chunk* m_pOBIM = nullptr;
 	};
 }

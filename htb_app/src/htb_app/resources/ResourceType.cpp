@@ -30,7 +30,6 @@ namespace htb::resources
 				return "icon_background.svg";
 			}
 			case ResourceType::RoomImage:
-			case ResourceType::RoomImageLayer:
 			{
 				return "icon_image.svg";
 			}
@@ -82,10 +81,6 @@ namespace htb::resources
 			case ResourceType::RoomImage:
 			{
 				return "Room Sprite";
-			}
-			case ResourceType::RoomImageLayer:
-			{
-				return "Room Sprite (Layered)";
 			}
 			case ResourceType::LocalScript:
 			{

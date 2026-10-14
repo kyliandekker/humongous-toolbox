@@ -35,7 +35,7 @@ namespace htb::imgui
 	{
 		{ "All Files",  resources::GetIconFromResourceType(resources::ResourceType::Unknown), { resources::ResourceType::Unknown } },
 		{ "Room Backgrounds",  resources::GetIconFromResourceType(resources::ResourceType::RoomBackground), { resources::ResourceType::RoomBackground } },
-		{ "Room Images",  resources::GetIconFromResourceType(resources::ResourceType::RoomImage), { resources::ResourceType::RoomImage, resources::ResourceType::RoomImageLayer } },
+		{ "Room Images",  resources::GetIconFromResourceType(resources::ResourceType::RoomImage), { resources::ResourceType::RoomImage } },
 		{ "SFX",	 resources::GetIconFromResourceType(resources::ResourceType::SFX), {resources::ResourceType::SFX}},
 		{ "Talkies",	 resources::GetIconFromResourceType(resources::ResourceType::Talkie), { resources::ResourceType::Talkie } },
 		{ "Songs",	 resources::GetIconFromResourceType(resources::ResourceType::Song), { resources::ResourceType::Song } },

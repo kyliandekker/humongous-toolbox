@@ -20,6 +20,12 @@ namespace htb::resources
 	//---------------------------------------------------------------------
 	// Resource
 	//---------------------------------------------------------------------
+	size_t Resource::Offset()
+	{
+		return m_pChunk->GetOffsetFromRoot();
+	}
+
+	//---------------------------------------------------------------------
 	void Resource::SetChunk(parsing::Chunk* a_pChunk)
 	{
 		m_pChunk = a_pChunk;
@@ -553,6 +559,16 @@ namespace htb::resources
 
 		// Get the RMIH and RMHD chunks.
 		parsing::Chunk* rmih = m_pDataChunk->GetParent()->GetParent()->TryFindChild(parsing::RMDA_CHUNK_ID);
+		if (!rmih)
+		{
+			return;
+		}
+
+		m_pRMIM = m_pChunk->TryFindParent(parsing::RMIM_CHUNK_ID);
+		if (!m_pRMIM)
+		{
+			return;
+		}
 
 		parsing::Chunk* rmhd = rmih->TryFindChild(parsing::RMHD_CHUNK_ID);
 		if (!rmhd)
@@ -647,6 +663,12 @@ namespace htb::resources
 	}
 
 	//---------------------------------------------------------------------
+	size_t RoomBackgroundResource::Offset()
+	{
+		return m_pRMIM->GetOffsetFromRoot();
+	}
+
+	//---------------------------------------------------------------------
 	// RoomImageResource
 	//---------------------------------------------------------------------
 	RoomImageResource::RoomImageResource() : ImageResource()
@@ -668,13 +690,15 @@ namespace htb::resources
 			return;
 		}
 
-		parsing::Chunk* obim = m_pDataChunk->TryFindParent(parsing::OBIM_CHUNK_ID);
-		if (!obim)
+		m_pOBIM = m_pDataChunk->TryFindParent(parsing::OBIM_CHUNK_ID);
+		if (!m_pOBIM)
 		{
 			return;
 		}
 
-		parsing::Chunk* imhd = obim->TryFindChild(parsing::IMHD_CHUNK_ID);
+		size_t offs = m_pOBIM->GetOffsetFromRoot();
+
+		parsing::Chunk* imhd = m_pOBIM->TryFindChild(parsing::IMHD_CHUNK_ID);
 		if (!imhd)
 		{
 			return;
@@ -691,7 +715,7 @@ namespace htb::resources
 		m_iX = imhdData->x;
 		m_iY = imhdData->y;
 
-		parsing::Chunk* rmda = obim->GetParent();
+		parsing::Chunk* rmda = m_pOBIM->GetParent();
 		if (!rmda)
 		{
 			return;
@@ -904,5 +928,11 @@ namespace htb::resources
 	uint16_t RoomImageResource::GetY() const
 	{
 		return m_iY;
+	}
+
+	//---------------------------------------------------------------------
+	size_t RoomImageResource::Offset()
+	{
+		return m_pOBIM->GetOffsetFromRoot();
 	}
 }

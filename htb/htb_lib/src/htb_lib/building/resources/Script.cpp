@@ -286,6 +286,7 @@ namespace htb::building
 			a_Chunk.GetTag() != parsing::LSC2_CHUNK_ID &&
 			a_Chunk.GetTag() != parsing::VERB_CHUNK_ID)
 		{
+			core::Log(core::ELogLevel::_ERROR, "Could not construct script because the provided chunk was not an SCRP, ENCD, EXCD, LSCR, LSC2 or VERB chunk.");
 			return;
 		}
 

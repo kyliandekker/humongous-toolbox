@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <unordered_map>
 
 #include <htb_lib_patcher/patch/Patcher.h>
 
@@ -13,9 +14,14 @@ namespace htb::archive
 }
 namespace htb::building
 {
+	class RoomImage;
 	class SFX;
 	class Song;
 	class Talkie;
+}
+namespace htb::parsing
+{
+	class Chunk;
 }
 namespace htb::ozonlaag
 {
@@ -91,18 +97,25 @@ namespace htb::ozonlaag
 		void LoadWaitingImages(archive::Archive& a_pArchive);
 
 		/// <summary>
-		/// Replaces the Talkies in an archive with the ones from a source archive.
+		/// Replaces the talkies in an archive with the ones from a source archive.
 		/// </summary>
 		/// <param name="a_aTargetTalkies">The target HE2 talkies.</param>
-		/// <param name="a_pSourceArchive">The source HE2 archive.</param>
-		/// <param name="a_mMap">The map of which TALKies to replace.</param>
-		void ReplaceTalkies(
-			std::vector<building::Talkie>& a_aTargetTalkies,
-			archive::Archive& a_pSourceArchive, // TODO: This is a design flaw in htb_lib. Source should be const.
-			const TALKIE_MAP& a_mMap,
-			const std::string a_sEmptyError,
-			const std::string a_sNotFoundErrorSource,
-			const std::string a_sNotFoundErrorTarget
+		/// <param name="a_SourceArchive">The source HE2 archive.</param>
+		/// <param name="a_mMap">The map of which room images to replace.</param>
+		void ReplaceTalkies(std::vector<building::Talkie>& a_aTargetTalkies, archive::Archive& a_pSourceArchive, const TALKIE_MAP& a_mMap, const std::string& a_sEmptyError, const std::string& a_sNotFoundErrorSource, const std::string& a_sNotFoundErrorTarget);
+
+		/// <summary>
+		/// Replaces the room images in an archive with the ones from a source archive.
+		/// </summary>
+		void ReplaceImages(
+			std::unordered_map<parsing::Chunk*, parsing::Chunk*>& a_mChunks
+		); 
+
+		/// <summary>
+		/// Replaces the room backgrounds in an archive with the ones from a source archive.
+		/// </summary>
+		void ReplaceBackgrounds(
+			std::unordered_map<parsing::Chunk*, parsing::Chunk*>& a_mChunks
 		); 
 
 		OzonlaagPatcherSettings m_Settings;

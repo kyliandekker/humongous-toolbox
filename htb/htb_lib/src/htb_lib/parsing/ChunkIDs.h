@@ -84,6 +84,13 @@ namespace htb::parsing
 	constexpr chunkid IM15_CHUNK_ID = "IM15";
 	constexpr chunkid IM16_CHUNK_ID = "IM16";
 	constexpr chunkid IM17_CHUNK_ID = "IM17";
+	constexpr chunkid IM0A_CHUNK_ID = "IM0A";
+	constexpr chunkid IM0B_CHUNK_ID = "IM0B";
+	constexpr chunkid IM0C_CHUNK_ID = "IM0C";
+	constexpr chunkid IM0D_CHUNK_ID = "IM0D";
+	constexpr chunkid IM0E_CHUNK_ID = "IM0E";
+	constexpr chunkid IM0F_CHUNK_ID = "IM0F";
+	constexpr chunkid XMAP_CHUNK_ID = "XMAP";
 	constexpr chunkid ZP00_CHUNK_ID = "ZP00";
 	constexpr chunkid ZP01_CHUNK_ID = "ZP01";
 	constexpr chunkid ZP02_CHUNK_ID = "ZP02";
@@ -128,13 +135,6 @@ namespace htb::parsing
 	constexpr chunkid DEFA_CHUNK_ID = "DEFA";
 	constexpr chunkid RMAP_CHUNK_ID = "RMAP";
 	constexpr chunkid CUSE_CHUNK_ID = "CUSE";
-	constexpr chunkid IM0A_CHUNK_ID = "IM0A";
-	constexpr chunkid IM0B_CHUNK_ID = "IM0B";
-	constexpr chunkid IM0C_CHUNK_ID = "IM0C";
-	constexpr chunkid IM0D_CHUNK_ID = "IM0D";
-	constexpr chunkid IM0E_CHUNK_ID = "IM0E";
-	constexpr chunkid IM0F_CHUNK_ID = "IM0F";
-	constexpr chunkid XMAP_CHUNK_ID = "XMAP";
 
 	// INDEX CHUNKS .HE0
 	constexpr chunkid MAXS_CHUNK_ID = "MAXS";

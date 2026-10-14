@@ -65,6 +65,30 @@ namespace htb::parsing
 	}
 
 	//======================================================================================
+	Chunk* Chunk::TryFindChild(const std::vector<std::string_view>& a_sChunkIDs)
+	{
+		// Recursively search all children.
+		for (const std::unique_ptr<Chunk>& chunk : m_aChildren)
+		{
+			for (const std::string_view& view : a_sChunkIDs)
+			{
+				if (chunk->GetTag() == view)
+				{
+					return chunk.get();
+				}
+			}
+
+			Chunk* found = chunk->TryFindChild(a_sChunkIDs);
+			if (found != nullptr)
+			{
+				return found;
+			}
+		}
+
+		return nullptr;
+	}
+
+	//======================================================================================
 	bool Chunk::TryFindChildren(const std::string_view& a_sChunkID, std::vector<Chunk*>& a_aChunks)
 	{
 		a_aChunks.clear();

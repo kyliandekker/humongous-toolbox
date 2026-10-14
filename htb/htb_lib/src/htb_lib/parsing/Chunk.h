@@ -58,6 +58,13 @@ namespace htb::parsing
 		Chunk* TryFindChild(const std::string_view& a_sChunkID);
 
 		/// <summary>
+		/// Recursively searches for a child chunk with the specified tag.
+		/// </summary>
+		/// <param name="a_sChunkID">The 4-character chunk tag to search for.</param>
+		/// <returns>A pointer to the found chunk, or nullptr if not found.</returns>
+		Chunk* TryFindChild(const std::vector<std::string_view>& a_sChunkIDs);
+
+		/// <summary>
 		/// Recursively searches for child chunks with the specified tag.
 		/// </summary>
 		/// <param name="a_sChunkID">The 4-character chunk tag to search for.</param>
